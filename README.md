@@ -25,7 +25,7 @@ DATA:
 python mvpnet/train_2d.py --cfg configs/scannet/unet_resnet34.yaml
 ```
  -->
- Currently, the code is not clean.
+ **Currently, the code is not clean.**
  
  The code is coming soon.
  
