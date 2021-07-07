@@ -6,7 +6,6 @@ Implementation of [Similarity-Aware Fusion Network for 3D Semantic Segmentation]
 ## Environment Preparation & Data Preparation
 
 We prepared our environment and [ScanNet data](http://kaldir.vc.in.tum.de/scannet_benchmark/) as follows: 
-(Thanks for the detaied instructions of [MVPNet](https://github.com/maxjaritz/mvpnet))
 
 Environment: 
 
@@ -17,7 +16,7 @@ Environment:
 DATA: 
 
   - The data is released under the [ScanNet Term of Use](http://kaldir.vc.in.tum.de/scannet/ScanNet_TOS.pdf), please contact ScanNet team for access.
-  - See MVPNet repo for processing the raw data and resizing images.
+  - See [MVPNet](https://github.com/maxjaritz/mvpnet) repo for processing the raw data and resizing images.
 
 <!-- ## Training -->
 
