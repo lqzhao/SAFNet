@@ -1,0 +1,56 @@
+TASK: "mvpnet_3d"
+MODEL_2D:
+  TYPE: "UNetResNet34"
+#  CKPT_PATH: "unet_resnet34_0321/model_best.pth"
+#  CKPT_PATH: "train_1_30/model_080000.pth"
+#  CKPT_PATH: "unet_resnet34_depth_0527_2/model_best.pth"
+  UNetResNet34:
+    num_classes: 20
+    p: 0.5  # keep it as pretrained, otherwise it will affect model.eval() behavior
+MODEL_3D:
+  TYPE: "PN2SSG"
+  PN2SSG:
+    num_classes: 20
+
+DATASET:
+  TYPE: "ScanNet2D3DChunks"
+  TRAIN: "train"
+  VAL: "val"
+  ScanNet2D3DChunks:
+    cache_dir: "/home/disk4/pickle"
+    image_dir: "/home/disk4/scannetimage_resized/scans_resize_160x120"
+    resize: (160, 120)
+    num_rgbd_frames: 3
+    k: 64
+    augmentation:
+      z_rot: (-180, 180)
+      flip: 0.5
+      color_jitter: (0.4, 0.4, 0.4)
+DATALOADER:
+  NUM_WORKERS: 16
+OPTIMIZER:
+  TYPE: "Adam"
+  BASE_LR: 1.00e-03
+SCHEDULER:
+  TYPE: "MultiStepLR"
+  MultiStepLR:
+    gamma: 0.1
+#    milestones: (10000,20000,25000,30000, 34000,38000)# image
+    milestones: (5000,10000,15000,20000,30000,40000) #point
+  MAX_ITERATION: 100000
+TRAIN:
+  BATCH_SIZE: 40 
+  LOG_PERIOD: 50
+  SUMMARY_PERIOD: 50
+  CHECKPOINT_PERIOD: 500
+  MAX_TO_KEEP: 2
+#  FROZEN_PATTERNS: ()
+#  FROZEN_PATTERNS: ("module:similarity", "similarity")
+#  FROZEN_PATTERNS: ("module:net_2d", "net_2d")
+#  FROZEN_PATTERNS2: ("module:feat_aggreg", "feat_aggreg")
+
+  LABEL_WEIGHTS_PATH: "safnet/data/meta_files/scannetv2_train_3d_log_weights_20_classes.txt"
+VAL:
+  BATCH_SIZE: 10
+  PERIOD: 500
+  REPEATS: 5
