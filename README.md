@@ -5,15 +5,19 @@ Implementation of "Similarity-Aware Fusion Network for 3D Semantic Segmentation"
 
 ## Preparation
 ###Environment Preparation & Data Preparation
+
 Thanks for the detaied instructions of [MVPNet](https://github.com/maxjaritz/mvpnet). 
+
 We prepared our environment and [ScanNet data](http://kaldir.vc.in.tum.de/scannet_benchmark/) following the practice of MVPNet:
 
 Environment: 
+
   - Python 3.6
   - Pytorch 1.2.0
   - CUDA 10.0 & CUDNN 7.6.4
  
 DATA: 
+
   The data is released under the [ScanNet Term of Use](http://kaldir.vc.in.tum.de/scannet/ScanNet_TOS.pdf), please contact ScanNet team for access.
 
 The code is coming soon.
