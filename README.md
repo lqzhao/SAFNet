@@ -10,6 +10,6 @@ If you find our work useful, please cite our [paper](https://arxiv.org/abs/2107.
 Author = {Linqing Zhao and Jiwen Lu and Jie Zhou},
 Title = {Similarity-Aware Fusion Network for 3D Semantic Segmentation},
 Year = {2021},
-journal={arXiv preprint arXiv:1911.11236},
+journal={arXiv preprint arXiv:2107.01579},
 }
 ```
