@@ -6,9 +6,8 @@ Implementation of "Similarity-Aware Fusion Network for 3D Semantic Segmentation"
 ## Preparation
 ###Environment Preparation & Data Preparation
 
-Thanks for the detaied instructions of [MVPNet](https://github.com/maxjaritz/mvpnet). 
-
-We prepared our environment and [ScanNet data](http://kaldir.vc.in.tum.de/scannet_benchmark/) following the practice of MVPNet:
+We prepared our environment and [ScanNet data](http://kaldir.vc.in.tum.de/scannet_benchmark/) as follows: 
+(Thanks for the detaied instructions of [MVPNet](https://github.com/maxjaritz/mvpnet))
 
 Environment: 
 
