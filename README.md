@@ -19,13 +19,15 @@ DATA:
   - The data is released under the [ScanNet Term of Use](http://kaldir.vc.in.tum.de/scannet/ScanNet_TOS.pdf), please contact ScanNet team for access.
   - See MVPNet repo for processing the raw data and resizing images.
 
-## Training
+<!-- ## Training -->
 
-Pre-train 2D networks on the 2D semantic segmentation task.
+<!-- Pre-train 2D networks on the 2D semantic segmentation task.
 ```bash
 python mvpnet/train_2d.py --cfg configs/scannet/unet_resnet34.yaml
 ```
-
+ -->
+ 
+ The code is coming soon.
 
 # Citation
 If you find our work useful, please cite our [paper](https://arxiv.org/abs/2107.01579):
