@@ -11,7 +11,7 @@ Environment:
   - Python 3.6
   - Pytorch 1.2.0
   - CUDA 10.0 & CUDNN 7.6.4
-  - 
+ 
 DATA: 
   The data is released under the [ScanNet Term of Use](http://kaldir.vc.in.tum.de/scannet/ScanNet_TOS.pdf), please contact ScanNet team for access.
 
