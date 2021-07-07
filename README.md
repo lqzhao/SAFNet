@@ -1,6 +1,8 @@
 # SAFNet
 Implementation of "Similarity-Aware Fusion Network for 3D Semantic Segmentation" IROS 2021
 
+![](./pipeline_new-Page-3_new_00.png)
+
 The code is coming soon.
 
 # Citation
