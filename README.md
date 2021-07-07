@@ -25,8 +25,13 @@ DATA:
 python mvpnet/train_2d.py --cfg configs/scannet/unet_resnet34.yaml
 ```
  -->
- 
+ Currently, the code is not clean.
  The code is coming soon.
+ 
+# Acknowledgements
+We thank the authors of following works for opening source their excellent codes.
+[MVPNet](https://github.com/maxjaritz/mvpnet)
+[PointNet2](https://github.com/charlesq34/pointnet2)
 
 # Citation
 If you find our work useful, please cite our [paper](https://arxiv.org/abs/2107.01579):
