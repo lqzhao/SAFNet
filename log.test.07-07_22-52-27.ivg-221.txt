@@ -1,0 +1,505 @@
+2021-07-07 22:52:28,075 mvpnet INFO: 4 GPUs available
+2021-07-07 22:52:28,075 mvpnet INFO: Namespace(cache_dir='/home/disk4/pickle', chunk_size=1.5, chunk_stride=0.5, chunk_thresh=1000, ckpt_path='/home/zlq/code/mvpnet/late_fusion/0706_attention_nn_bidirection_image/protect/model_best_0.6855.pth', config_file='configs/scannet/mvpnet_3d_unet_resnet34_pn2ssg.yaml', image_dir='/home/disk4/scannetimage_resized/scans_resize_160x120', k=64, min_nb_pts=2048, num_views=5, opts=[], save=False, similarity='point', split='val')
+2021-07-07 22:52:51,651 mvpnet INFO: Collecting env info (might take some time)
+PyTorch version: 1.2.0
+Is debug build: No
+CUDA used to build PyTorch: 10.0.130
+
+OS: Ubuntu 18.04.3 LTS
+GCC version: (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+CMake version: version 3.18.2
+
+Python version: 3.6
+Is CUDA available: Yes
+CUDA runtime version: 10.0.130
+GPU models and configuration: 
+GPU 0: GeForce GTX 1080 Ti
+GPU 1: GeForce GTX 1080 Ti
+GPU 2: GeForce GTX 1080 Ti
+GPU 3: GeForce GTX 1080 Ti
+
+Nvidia driver version: 450.57
+cuDNN version: /usr/local/cuda-10.1/targets/x86_64-linux/lib/libcudnn.so.7
+
+Versions of relevant libraries:
+[pip3] numpy==1.18.1
+[conda] _pytorch_select           0.2                       gpu_0    https://repo.anaconda.com/pkgs/main
+[conda] blas                      1.0                         mkl    https://repo.anaconda.com/pkgs/main
+[conda] mkl                       2019.4                      243    https://repo.anaconda.com/pkgs/main
+[conda] mkl-service               2.3.0            py36he904b0f_0    https://repo.anaconda.com/pkgs/main
+[conda] mkl_fft                   1.0.15           py36ha843d7b_0    https://repo.anaconda.com/pkgs/main
+[conda] mkl_random                1.1.0            py36hd6b4f25_0    https://repo.anaconda.com/pkgs/main
+[conda] pytorch                   1.2.0           cuda100py36h938c94c_0    https://repo.anaconda.com/pkgs/main
+[conda] torch                     1.5.0                    pypi_0    pypi
+[conda] torch-encoding            1.2.0b20200425           pypi_0    pypi
+[conda] torch-geometric           1.6.1                    pypi_0    pypi
+[conda] torchvision               0.6.0                    pypi_0    pypi
+Pillow (6.1.0)
+Git revision number: cadf6367
+Git Modified
+common/nn/freezer.py
+configs/scannet/mvpnet_3d_unet_resnet34_pn2ssg.yaml
+configs/scannet/unet_resnet34.yaml
+mvpnet/data/build.py
+mvpnet/data/preprocess/extract_raw_data_scannet.py
+mvpnet/data/preprocess/preprocess.py
+mvpnet/data/preprocess/resize_scannet_images.py
+mvpnet/data/scannet_2d.py
+mvpnet/data/scannet_2d3d.py
+mvpnet/evaluate_3d.py
+mvpnet/models/build.py
+mvpnet/models/loss.py
+mvpnet/models/mvpnet_2d.py
+mvpnet/models/mvpnet_3d.py
+mvpnet/models/mvpnet_3d_late_fusion_attention_new_distance_linear_mapping.py
+mvpnet/models/pn2/modules.py
+mvpnet/models/pn2/pn2ssg.py
+mvpnet/models/sift.py
+mvpnet/models/unet_resnet34.py
+mvpnet/ops/knn_distance.py
+mvpnet/test_2d.py
+mvpnet/test_2d_chunks.py
+mvpnet/test_mvpnet_3d.py
+mvpnet/train_2d.py
+mvpnet/train_mvpnet_3d.py
+mvpnet/utils/o3d_util.py
+mvpnet/utils/plt_util.py
+mvpnet/utils/visualize.py
+2021-07-07 22:52:51,651 mvpnet INFO: Loaded configuration file configs/scannet/mvpnet_3d_unet_resnet34_pn2ssg.yaml
+2021-07-07 22:52:51,652 mvpnet INFO: Running with config:
+AUTO_RESUME: True
+DATALOADER:
+  DROP_LAST: True
+  NUM_WORKERS: 16
+DATASET:
+  ScanNet2D3DChunks:
+    augmentation:
+      color_jitter: (0.4, 0.4, 0.4)
+      flip: 0.5
+      z_rot: (-180, 180)
+    cache_dir: /home/disk4/pickle
+    chunk_margin: (0.2, 0.2)
+    chunk_size: (1.5, 1.5)
+    chunk_thresh: 0.3
+    image_dir: /home/disk4/scannetimage_resized/scans_resize_160x120
+    image_normalizer: ((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
+    k: 64
+    nb_pts: 8192
+    num_rgbd_frames: 3
+    resize: (160, 120)
+  TRAIN: train
+  TYPE: ScanNet2D3DChunks
+  VAL: val
+FEAT_AGGR:
+  in_channels: 64
+  mlp_channels: (64, 64, 64)
+  reduction: sum
+  use_relation: True
+MODEL:
+  TYPE: 
+MODEL_2D:
+  CKPT_PATH: 
+  TYPE: UNetResNet34
+  UNetResNet34:
+    num_classes: 20
+    p: 0.5
+MODEL_3D:
+  PN2SSG:
+    dropout_prob: 0.5
+    fp_channels: ((256, 256), (256, 256), (256, 128), (128, 128, 128))
+    fp_neighbors: (3, 3, 3, 3)
+    in_channels: 64
+    max_neighbors: (32, 32, 32, 32)
+    num_centroids: (2048, 512, 128, 32)
+    num_classes: 20
+    radius: (0.1, 0.2, 0.4, 0.8)
+    sa_channels: ((32, 32, 64), (64, 64, 128), (128, 128, 256), (256, 256, 512))
+    seg_channels: (128,)
+    use_xyz: True
+  TYPE: PN2SSG
+OPTIMIZER:
+  Adam:
+    betas: (0.9, 0.999)
+  BASE_LR: 0.001
+  MAX_GRAD_NORM: 0.0
+  TYPE: Adam
+  WEIGHT_DECAY: 0.0
+OUTPUT_DIR: @
+RESUME_PATH: 
+RESUME_STATES: True
+RNG_SEED: -1
+SCHEDULER:
+  CLIP_LR: 0.0
+  MAX_ITERATION: 100000
+  MultiStepLR:
+    gamma: 0.1
+    milestones: (5000, 10000, 15000, 20000, 30000, 40000)
+  TYPE: MultiStepLR
+TASK: mvpnet_3d
+TRAIN:
+  AUGMENTATION: ()
+  BATCH_SIZE: 10
+  CHECKPOINT_PERIOD: 500
+  FROZEN_PATTERNS: ()
+  LABEL_WEIGHTS_PATH: mvpnet/data/meta_files/scannetv2_train_3d_log_weights_20_classes.txt
+  LOG_PERIOD: 50
+  MAX_TO_KEEP: 2
+  SUMMARY_PERIOD: 50
+VAL:
+  AUGMENTATION: ()
+  BATCH_SIZE: 10
+  LOG_PERIOD: 0
+  METRIC: seg_iou
+  PERIOD: 500
+  REPEATS: 5
+2021-07-07 22:52:54,494 mvpnet.test INFO: Loading checkpoint from /home/zlq/code/mvpnet/late_fusion/0706_attention_nn_bidirection_image/protect/model_best_0.6855.pth, MD5: 916508a168f88c09a3e62cfe1d311fd9
+2021-07-07 22:52:56,005 mvpnet.data.scannet_2d3d INFO: ScanNet2D3DChunksTest: 20 classes with 312 scenes and 539499 frames.
+chunk_size=[1.5 1.5], chunk_thresh=1000, chunk_margin=[0.2 0.2], nb_pts=-1, num_rgbd_frames=5, resize=(160, 120), image_normalizer=((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)), k=64, z_rot=None, flip=0.0
+2021-07-07 22:59:06,259 mvpnet.test INFO: 0/312(scene0568_00)  acc: 85.01  IoU: 56.41  time: 370.2510 (370.2510)  data: 177.6988 (177.6988)  forward_time: 192.3232 (192.3232)  metric_time: 0.1941 (0.1941)
+2021-07-07 23:03:08,318 mvpnet.test INFO: 1/312(scene0568_01)  acc: 86.87  IoU: 52.91  time: 306.1543 (306.1543)  data: 104.9370 (104.9370)  forward_time: 200.9883 (200.9883)  metric_time: 0.1902 (0.1902)
+2021-07-07 23:06:33,043 mvpnet.test INFO: 2/312(scene0568_02)  acc: 86.66  IoU: 48.42  time: 272.3442 (272.3442)  data: 69.9606 (69.9606)  forward_time: 202.1623 (202.1623)  metric_time: 0.1863 (0.1863)
+2021-07-07 23:08:45,478 mvpnet.test INFO: 3/312(scene0304_00)  acc: 87.16  IoU: 54.36  time: 237.3665 (237.3665)  data: 52.4732 (52.4732)  forward_time: 184.6908 (184.6908)  metric_time: 0.1683 (0.1683)
+2021-07-07 23:10:24,502 mvpnet.test INFO: 4/312(scene0488_00)  acc: 87.63  IoU: 62.85  time: 209.6979 (209.6979)  data: 41.9800 (41.9800)  forward_time: 167.5323 (167.5323)  metric_time: 0.1548 (0.1548)
+2021-07-07 23:12:08,221 mvpnet.test INFO: 5/312(scene0488_01)  acc: 88.10  IoU: 62.87  time: 192.0345 (192.0345)  data: 34.9840 (34.9840)  forward_time: 156.8773 (156.8773)  metric_time: 0.1448 (0.1448)
+2021-07-07 23:14:51,999 mvpnet.test INFO: 6/312(scene0412_00)  acc: 86.99  IoU: 57.88  time: 187.9977 (187.9977)  data: 29.9868 (29.9868)  forward_time: 157.8391 (157.8391)  metric_time: 0.1439 (0.1439)
+2021-07-07 23:16:49,954 mvpnet.test INFO: 7/312(scene0412_01)  acc: 85.93  IoU: 57.14  time: 179.2423 (179.2423)  data: 26.2388 (26.2388)  forward_time: 152.8362 (152.8362)  metric_time: 0.1400 (0.1400)
+2021-07-07 23:18:03,627 mvpnet.test INFO: 8/312(scene0217_00)  acc: 86.76  IoU: 63.90  time: 167.5122 (167.5122)  data: 23.3237 (23.3237)  forward_time: 144.0260 (144.0260)  metric_time: 0.1357 (0.1357)
+2021-07-07 23:20:11,912 mvpnet.test INFO: 9/312(scene0019_00)  acc: 86.84  IoU: 62.68  time: 163.5894 (163.5894)  data: 20.9917 (20.9917)  forward_time: 142.4365 (142.4365)  metric_time: 0.1339 (0.1339)
+2021-07-07 23:23:04,857 mvpnet.test INFO: 10/312(scene0019_01)  acc: 87.43  IoU: 63.01  time: 164.4398 (164.4398)  data: 22.4489 (22.4489)  forward_time: 141.8296 (141.8296)  metric_time: 0.1340 (0.1340)
+2021-07-07 23:26:30,188 mvpnet.test INFO: 11/312(scene0414_00)  acc: 87.39  IoU: 63.42  time: 167.8473 (167.8473)  data: 22.2319 (22.2319)  forward_time: 145.4522 (145.4522)  metric_time: 0.1357 (0.1357)
+2021-07-07 23:29:03,812 mvpnet.test INFO: 12/312(scene0575_00)  acc: 88.23  IoU: 64.77  time: 166.7530 (166.7530)  data: 20.5221 (20.5221)  forward_time: 146.0655 (146.0655)  metric_time: 0.1361 (0.1361)
+2021-07-07 23:31:40,274 mvpnet.test INFO: 13/312(scene0575_01)  acc: 88.77  IoU: 65.68  time: 166.0179 (166.0179)  data: 19.0565 (19.0565)  forward_time: 146.7946 (146.7946)  metric_time: 0.1377 (0.1377)
+2021-07-07 23:34:56,149 mvpnet.test INFO: 14/312(scene0575_02)  acc: 89.18  IoU: 66.42  time: 168.0083 (168.0083)  data: 17.7863 (17.7863)  forward_time: 150.0539 (150.0539)  metric_time: 0.1393 (0.1393)
+2021-07-07 23:36:18,922 mvpnet.test INFO: 15/312(scene0426_00)  acc: 89.14  IoU: 65.30  time: 162.6810 (162.6810)  data: 16.6750 (16.6750)  forward_time: 145.8391 (145.8391)  metric_time: 0.1388 (0.1388)
+2021-07-07 23:37:38,386 mvpnet.test INFO: 16/312(scene0426_01)  acc: 89.17  IoU: 64.97  time: 157.7858 (157.7858)  data: 15.6943 (15.6943)  forward_time: 141.9264 (141.9264)  metric_time: 0.1375 (0.1375)
+2021-07-07 23:38:50,017 mvpnet.test INFO: 17/312(scene0426_02)  acc: 89.28  IoU: 64.63  time: 152.9993 (152.9993)  data: 14.8225 (14.8225)  forward_time: 138.0131 (138.0131)  metric_time: 0.1360 (0.1360)
+2021-07-07 23:40:24,483 mvpnet.test INFO: 18/312(scene0426_03)  acc: 89.37  IoU: 64.31  time: 149.9185 (149.9185)  data: 14.0425 (14.0425)  forward_time: 135.7118 (135.7118)  metric_time: 0.1368 (0.1368)
+2021-07-07 23:43:03,582 mvpnet.test INFO: 19/312(scene0549_00)  acc: 89.49  IoU: 64.25  time: 150.3775 (150.3775)  data: 13.3405 (13.3405)  forward_time: 136.8717 (136.8717)  metric_time: 0.1368 (0.1368)
+2021-07-07 23:47:03,705 mvpnet.test INFO: 20/312(scene0549_01)  acc: 89.74  IoU: 64.16  time: 143.8710 (154.6510)  data: 7.3249 (15.4379)  forward_time: 136.3822 (139.0461)  metric_time: 0.1350 (0.1378)
+2021-07-07 23:48:54,081 mvpnet.test INFO: 21/312(scene0578_00)  acc: 89.89  IoU: 64.02  time: 137.2868 (152.6384)  data: 6.6183 (15.5563)  forward_time: 130.5089 (136.9161)  metric_time: 0.1316 (0.1370)
+2021-07-07 23:50:06,012 mvpnet.test INFO: 22/312(scene0578_01)  acc: 90.08  IoU: 64.13  time: 130.6471 (149.1294)  data: 6.6180 (14.8801)  forward_time: 123.8736 (134.0852)  metric_time: 0.1280 (0.1356)
+2021-07-07 23:51:21,039 mvpnet.test INFO: 23/312(scene0578_02)  acc: 90.24  IoU: 64.15  time: 127.7767 (146.0417)  data: 6.6175 (14.2601)  forward_time: 121.0049 (131.6192)  metric_time: 0.1277 (0.1345)
+2021-07-07 23:55:27,540 mvpnet.test INFO: 24/312(scene0665_00)  acc: 90.07  IoU: 64.36  time: 135.1506 (150.0600)  data: 6.6173 (13.6898)  forward_time: 128.3727 (136.2046)  metric_time: 0.1324 (0.1369)
+2021-07-07 23:58:37,168 mvpnet.test INFO: 25/312(scene0665_01)  acc: 90.06  IoU: 64.37  time: 139.4460 (151.5818)  data: 6.6175 (13.1636)  forward_time: 132.6637 (138.2515)  metric_time: 0.1362 (0.1382)
+2021-07-08 00:01:48,999 mvpnet.test INFO: 26/312(scene0050_00)  acc: 89.09  IoU: 59.71  time: 140.8486 (153.0725)  data: 6.6183 (12.6768)  forward_time: 134.0646 (140.2283)  metric_time: 0.1368 (0.1386)
+2021-07-08 00:03:57,497 mvpnet.test INFO: 27/312(scene0050_01)  acc: 88.00  IoU: 58.31  time: 141.3757 (152.1947)  data: 6.6183 (12.2242)  forward_time: 134.5895 (139.8029)  metric_time: 0.1386 (0.1390)
+2021-07-08 00:06:23,722 mvpnet.test INFO: 28/312(scene0050_02)  acc: 87.52  IoU: 57.65  time: 145.0034 (151.9889)  data: 6.6183 (11.8027)  forward_time: 138.2145 (140.0181)  metric_time: 0.1409 (0.1393)
+2021-07-08 00:08:42,071 mvpnet.test INFO: 29/312(scene0257_00)  acc: 87.63  IoU: 56.96  time: 145.5065 (151.5342)  data: 6.6185 (11.4095)  forward_time: 138.7148 (139.9554)  metric_time: 0.1422 (0.1394)
+2021-07-08 00:11:49,350 mvpnet.test INFO: 30/312(scene0025_00)  acc: 87.72  IoU: 56.87  time: 146.2232 (152.6872)  data: 6.2794 (12.0170)  forward_time: 139.7671 (140.4990)  metric_time: 0.1446 (0.1409)
+2021-07-08 00:14:03,120 mvpnet.test INFO: 31/312(scene0025_01)  acc: 87.68  IoU: 56.59  time: 142.6452 (152.0960)  data: 6.1391 (12.1739)  forward_time: 136.3297 (139.7506)  metric_time: 0.1444 (0.1411)
+2021-07-08 00:16:27,945 mvpnet.test INFO: 32/312(scene0025_02)  acc: 87.79  IoU: 56.71  time: 142.2053 (151.8756)  data: 6.1391 (11.8051)  forward_time: 135.8887 (139.8978)  metric_time: 0.1466 (0.1425)
+2021-07-08 00:18:28,759 mvpnet.test INFO: 33/312(scene0583_00)  acc: 87.61  IoU: 60.04  time: 140.4228 (150.9620)  data: 6.1390 (11.4580)  forward_time: 134.1085 (139.3322)  metric_time: 0.1451 (0.1420)
+2021-07-08 00:19:43,623 mvpnet.test INFO: 34/312(scene0583_01)  acc: 87.44  IoU: 61.20  time: 134.3722 (148.7877)  data: 6.1390 (11.1307)  forward_time: 128.0621 (137.4872)  metric_time: 0.1416 (0.1406)
+2021-07-08 00:20:41,533 mvpnet.test INFO: 35/312(scene0583_02)  acc: 87.27  IoU: 61.29  time: 133.1291 (146.2633)  data: 6.1388 (10.8216)  forward_time: 126.8189 (135.2723)  metric_time: 0.1421 (0.1406)
+2021-07-08 00:21:58,740 mvpnet.test INFO: 36/312(scene0701_00)  acc: 87.41  IoU: 61.50  time: 133.0162 (144.3968)  data: 6.1387 (10.5291)  forward_time: 126.7061 (133.6992)  metric_time: 0.1424 (0.1402)
+2021-07-08 00:23:11,907 mvpnet.test INFO: 37/312(scene0701_01)  acc: 87.55  IoU: 61.63  time: 133.0929 (142.5223)  data: 6.1388 (10.2521)  forward_time: 126.7830 (132.1025)  metric_time: 0.1432 (0.1398)
+2021-07-08 00:24:55,422 mvpnet.test INFO: 38/312(scene0701_02)  acc: 87.56  IoU: 61.61  time: 133.5453 (141.5220)  data: 6.1388 (9.9893)  forward_time: 127.2345 (131.3645)  metric_time: 0.1441 (0.1405)
+2021-07-08 00:26:51,219 mvpnet.test INFO: 39/312(scene0580_00)  acc: 87.46  IoU: 62.29  time: 131.3802 (140.8789)  data: 6.1388 (9.7397)  forward_time: 125.0704 (130.9710)  metric_time: 0.1440 (0.1404)
+2021-07-08 00:30:00,906 mvpnet.test INFO: 40/312(scene0580_01)  acc: 87.23  IoU: 62.06  time: 128.8584 (142.0693)  data: 5.6148 (10.6461)  forward_time: 123.0752 (131.2554)  metric_time: 0.1421 (0.1399)
+2021-07-08 00:32:48,841 mvpnet.test INFO: 41/312(scene0565_00)  acc: 87.16  IoU: 61.97  time: 131.7364 (142.6851)  data: 6.1038 (11.0551)  forward_time: 125.4637 (131.4626)  metric_time: 0.1426 (0.1397)
+2021-07-08 00:36:42,121 mvpnet.test INFO: 42/312(scene0169_00)  acc: 87.16  IoU: 62.17  time: 139.8038 (144.7919)  data: 6.1039 (10.7981)  forward_time: 133.5258 (133.8250)  metric_time: 0.1473 (0.1410)
+2021-07-08 00:40:35,288 mvpnet.test INFO: 43/312(scene0169_01)  acc: 87.15  IoU: 62.38  time: 147.7108 (146.8004)  data: 6.1040 (10.5528)  forward_time: 141.4282 (136.0778)  metric_time: 0.1509 (0.1420)
+2021-07-08 00:42:26,704 mvpnet.test INFO: 44/312(scene0655_00)  acc: 87.37  IoU: 62.49  time: 140.9566 (146.0141)  data: 6.1041 (10.3184)  forward_time: 134.6800 (135.5270)  metric_time: 0.1465 (0.1411)
+2021-07-08 00:44:48,959 mvpnet.test INFO: 45/312(scene0655_01)  acc: 87.60  IoU: 62.60  time: 138.5880 (145.9323)  data: 6.1038 (10.0941)  forward_time: 132.3111 (135.6687)  metric_time: 0.1468 (0.1419)
+2021-07-08 00:46:53,040 mvpnet.test INFO: 46/312(scene0655_02)  acc: 87.81  IoU: 62.69  time: 135.2005 (145.4674)  data: 6.1030 (9.8794)  forward_time: 128.9268 (135.4192)  metric_time: 0.1450 (0.1413)
+2021-07-08 00:48:02,828 mvpnet.test INFO: 47/312(scene0063_00)  acc: 87.90  IoU: 62.94  time: 132.2650 (143.8907)  data: 6.1029 (9.6737)  forward_time: 125.9966 (134.0503)  metric_time: 0.1408 (0.1397)
+2021-07-08 00:50:56,567 mvpnet.test INFO: 48/312(scene0221_00)  acc: 87.98  IoU: 63.83  time: 133.6407 (144.4998)  data: 6.1029 (9.4763)  forward_time: 127.3726 (134.8567)  metric_time: 0.1410 (0.1400)
+2021-07-08 00:52:48,055 mvpnet.test INFO: 49/312(scene0221_01)  acc: 88.06  IoU: 64.08  time: 132.2977 (143.8396)  data: 6.1028 (9.2868)  forward_time: 126.0325 (134.3862)  metric_time: 0.1405 (0.1398)
+2021-07-08 00:56:25,367 mvpnet.test INFO: 50/312(scene0591_00)  acc: 88.16  IoU: 64.37  time: 133.7993 (145.2802)  data: 7.6640 (10.3099)  forward_time: 125.9743 (134.8030)  metric_time: 0.1382 (0.1398)
+2021-07-08 00:59:49,460 mvpnet.test INFO: 51/312(scene0591_01)  acc: 88.29  IoU: 64.68  time: 137.3155 (146.4112)  data: 9.0774 (10.9829)  forward_time: 128.0773 (135.2609)  metric_time: 0.1381 (0.1399)
+2021-07-08 01:02:07,299 mvpnet.test INFO: 52/312(scene0591_02)  acc: 88.35  IoU: 64.77  time: 136.9662 (146.2494)  data: 9.0774 (10.7758)  forward_time: 127.7303 (135.3063)  metric_time: 0.1359 (0.1400)
+2021-07-08 01:08:26,877 mvpnet.test INFO: 53/312(scene0678_00)  acc: 88.31  IoU: 65.03  time: 149.9044 (150.5703)  data: 9.0774 (10.5763)  forward_time: 140.6572 (139.8229)  metric_time: 0.1442 (0.1428)
+2021-07-08 01:15:01,147 mvpnet.test INFO: 54/312(scene0678_01)  acc: 88.17  IoU: 64.36  time: 165.8748 (155.0012)  data: 9.0777 (10.3841)  forward_time: 156.6137 (144.4423)  metric_time: 0.1548 (0.1458)
+2021-07-08 01:20:31,948 mvpnet.test INFO: 55/312(scene0678_02)  acc: 88.18  IoU: 64.27  time: 179.5194 (158.1405)  data: 9.0800 (10.1996)  forward_time: 170.2487 (147.7639)  metric_time: 0.1605 (0.1477)
+2021-07-08 01:22:56,588 mvpnet.test INFO: 56/312(scene0462_00)  acc: 88.16  IoU: 63.98  time: 182.8911 (157.9036)  data: 9.0803 (10.0208)  forward_time: 173.6199 (147.7065)  metric_time: 0.1604 (0.1473)
+2021-07-08 01:23:51,003 mvpnet.test INFO: 57/312(scene0427_00)  acc: 88.25  IoU: 64.04  time: 181.9536 (156.1193)  data: 9.0803 (9.8480)  forward_time: 172.6857 (146.0967)  metric_time: 0.1573 (0.1458)
+2021-07-08 01:25:38,353 mvpnet.test INFO: 58/312(scene0595_00)  acc: 88.32  IoU: 63.91  time: 182.1453 (155.2926)  data: 9.0803 (9.6812)  forward_time: 172.8793 (145.4373)  metric_time: 0.1551 (0.1455)
+2021-07-08 01:26:42,163 mvpnet.test INFO: 59/312(scene0193_00)  acc: 88.30  IoU: 63.97  time: 179.5460 (153.7679)  data: 9.0803 (9.5199)  forward_time: 170.2839 (144.0753)  metric_time: 0.1518 (0.1442)
+2021-07-08 01:28:08,925 mvpnet.test INFO: 60/312(scene0193_01)  acc: 88.28  IoU: 63.79  time: 174.3998 (152.6694)  data: 8.0678 (9.8008)  forward_time: 166.1539 (142.6975)  metric_time: 0.1492 (0.1430)
+2021-07-08 01:29:17,926 mvpnet.test INFO: 61/312(scene0164_00)  acc: 88.32  IoU: 64.18  time: 169.4531 (151.3199)  data: 7.2671 (9.8332)  forward_time: 162.0073 (141.3157)  metric_time: 0.1502 (0.1431)
+2021-07-08 01:30:11,727 mvpnet.test INFO: 62/312(scene0164_01)  acc: 88.37  IoU: 64.63  time: 160.4792 (149.7720)  data: 7.2671 (9.6771)  forward_time: 153.0408 (139.9252)  metric_time: 0.1440 (0.1420)
+2021-07-08 01:31:21,680 mvpnet.test INFO: 63/312(scene0164_02)  acc: 88.41  IoU: 64.96  time: 152.3185 (148.5248)  data: 7.2669 (9.5260)  forward_time: 144.8840 (138.8297)  metric_time: 0.1409 (0.1416)
+2021-07-08 01:32:20,740 mvpnet.test INFO: 64/312(scene0164_03)  acc: 88.44  IoU: 65.15  time: 149.7007 (147.1484)  data: 7.2668 (9.3794)  forward_time: 142.2661 (137.6006)  metric_time: 0.1412 (0.1412)
+2021-07-08 01:34:37,209 mvpnet.test INFO: 65/312(scene0598_00)  acc: 88.26  IoU: 65.21  time: 149.4114 (146.9866)  data: 7.2668 (9.2374)  forward_time: 141.9804 (137.5813)  metric_time: 0.1382 (0.1408)
+2021-07-08 01:36:06,723 mvpnet.test INFO: 66/312(scene0598_01)  acc: 88.30  IoU: 65.24  time: 147.6831 (146.1288)  data: 7.2668 (9.0995)  forward_time: 140.2523 (136.8619)  metric_time: 0.1384 (0.1405)
+2021-07-08 01:38:41,807 mvpnet.test INFO: 67/312(scene0598_02)  acc: 88.45  IoU: 65.58  time: 151.9479 (146.2604)  data: 7.2668 (8.9658)  forward_time: 144.5128 (137.1275)  metric_time: 0.1420 (0.1404)
+2021-07-08 01:40:29,858 mvpnet.test INFO: 68/312(scene0599_00)  acc: 88.54  IoU: 65.68  time: 148.6635 (145.7067)  data: 7.2668 (8.8359)  forward_time: 141.2303 (136.7041)  metric_time: 0.1403 (0.1401)
+2021-07-08 01:42:23,612 mvpnet.test INFO: 69/312(scene0599_01)  acc: 88.64  IoU: 65.81  time: 148.7768 (145.2502)  data: 7.2668 (8.7097)  forward_time: 141.3443 (136.3743)  metric_time: 0.1397 (0.1398)
+2021-07-08 01:44:30,636 mvpnet.test INFO: 70/312(scene0599_02)  acc: 88.72  IoU: 65.94  time: 144.2624 (144.9935)  data: 5.0218 (8.8203)  forward_time: 139.0760 (136.0067)  metric_time: 0.1403 (0.1400)
+2021-07-08 01:46:32,828 mvpnet.test INFO: 71/312(scene0328_00)  acc: 88.67  IoU: 65.87  time: 140.1673 (144.6768)  data: 3.4984 (8.9039)  forward_time: 136.5076 (135.6072)  metric_time: 0.1373 (0.1392)
+2021-07-08 01:48:01,566 mvpnet.test INFO: 72/312(scene0300_00)  acc: 88.50  IoU: 65.76  time: 137.7123 (143.9105)  data: 3.4984 (8.7820)  forward_time: 134.0537 (134.9631)  metric_time: 0.1360 (0.1389)
+2021-07-08 01:50:35,133 mvpnet.test INFO: 73/312(scene0300_01)  acc: 88.44  IoU: 65.90  time: 126.4117 (144.0410)  data: 3.4984 (8.6633)  forward_time: 122.7644 (135.2125)  metric_time: 0.1275 (0.1387)
+2021-07-08 01:51:50,615 mvpnet.test INFO: 74/312(scene0354_00)  acc: 88.50  IoU: 65.95  time: 110.4723 (143.1268)  data: 3.4983 (8.5479)  forward_time: 106.8384 (134.4146)  metric_time: 0.1170 (0.1381)
+2021-07-08 01:52:14,256 mvpnet.test INFO: 75/312(scene0458_00)  acc: 88.50  IoU: 66.08  time: 95.1143 (141.5546)  data: 3.4961 (8.4355)  forward_time: 91.4947 (132.9562)  metric_time: 0.1070 (0.1370)
+2021-07-08 01:52:49,542 mvpnet.test INFO: 76/312(scene0458_01)  acc: 88.49  IoU: 66.15  time: 89.6467 (140.1745)  data: 3.4957 (8.3259)  forward_time: 86.0307 (131.6868)  metric_time: 0.1038 (0.1360)
+2021-07-08 01:53:39,229 mvpnet.test INFO: 77/312(scene0423_00)  acc: 88.55  IoU: 66.18  time: 89.4102 (139.0144)  data: 3.4956 (8.2192)  forward_time: 85.7932 (130.6342)  metric_time: 0.1048 (0.1353)
+2021-07-08 01:54:13,460 mvpnet.test INFO: 78/312(scene0423_01)  acc: 88.60  IoU: 66.20  time: 85.7543 (137.6880)  data: 3.4957 (8.1152)  forward_time: 82.1409 (129.4129)  metric_time: 0.1021 (0.1345)
+2021-07-08 01:55:06,993 mvpnet.test INFO: 79/312(scene0423_02)  acc: 88.67  IoU: 66.22  time: 85.2405 (136.6360)  data: 3.4956 (8.0138)  forward_time: 81.6286 (128.4636)  metric_time: 0.1011 (0.1334)
+2021-07-08 02:02:43,237 mvpnet.test INFO: 80/312(scene0307_00)  acc: 88.51  IoU: 65.86  time: 103.7145 (140.5818)  data: 4.0108 (8.3711)  forward_time: 99.5748 (132.0499)  metric_time: 0.1118 (0.1353)
+2021-07-08 02:10:50,206 mvpnet.test INFO: 81/312(scene0307_01)  acc: 88.30  IoU: 65.42  time: 124.6130 (144.8060)  data: 6.4278 (9.0026)  forward_time: 118.0410 (135.6390)  metric_time: 0.1214 (0.1378)
+2021-07-08 02:18:44,468 mvpnet.test INFO: 82/312(scene0307_02)  acc: 87.98  IoU: 65.05  time: 145.6360 (148.7754)  data: 6.4308 (8.8949)  forward_time: 139.0452 (139.7132)  metric_time: 0.1344 (0.1401)
+2021-07-08 02:21:13,345 mvpnet.test INFO: 83/312(scene0606_00)  acc: 87.82  IoU: 64.71  time: 149.5821 (148.7766)  data: 6.4309 (8.7890)  forward_time: 142.9866 (139.8195)  metric_time: 0.1382 (0.1408)
+2021-07-08 02:23:30,886 mvpnet.test INFO: 84/312(scene0606_01)  acc: 87.70  IoU: 64.53  time: 153.5062 (148.6444)  data: 6.4309 (8.6857)  forward_time: 146.9092 (139.7908)  metric_time: 0.1393 (0.1407)
+2021-07-08 02:26:14,860 mvpnet.test INFO: 85/312(scene0606_02)  acc: 87.57  IoU: 64.33  time: 154.8814 (148.8226)  data: 6.4310 (8.5847)  forward_time: 148.2796 (140.0693)  metric_time: 0.1434 (0.1414)
+2021-07-08 02:26:51,013 mvpnet.test INFO: 86/312(scene0432_00)  acc: 87.61  IoU: 64.35  time: 152.2134 (147.5275)  data: 6.4309 (8.4861)  forward_time: 145.6164 (138.8744)  metric_time: 0.1390 (0.1401)
+2021-07-08 02:27:14,591 mvpnet.test INFO: 87/312(scene0432_01)  acc: 87.63  IoU: 64.36  time: 145.6381 (146.1190)  data: 6.4309 (8.3896)  forward_time: 139.0455 (137.5634)  metric_time: 0.1352 (0.1392)
+2021-07-08 02:30:00,491 mvpnet.test INFO: 88/312(scene0608_00)  acc: 87.50  IoU: 64.10  time: 148.5305 (146.3412)  data: 6.4309 (8.2954)  forward_time: 141.9355 (137.8797)  metric_time: 0.1368 (0.1393)
+2021-07-08 02:33:09,579 mvpnet.test INFO: 89/312(scene0608_01)  acc: 87.33  IoU: 63.84  time: 152.2971 (146.8162)  data: 6.4310 (8.2033)  forward_time: 145.6994 (138.4465)  metric_time: 0.1393 (0.1397)
+2021-07-08 02:36:54,307 mvpnet.test INFO: 90/312(scene0608_02)  acc: 87.20  IoU: 63.64  time: 157.1824 (147.6724)  data: 6.9445 (8.4081)  forward_time: 150.0681 (139.0971)  metric_time: 0.1418 (0.1404)
+2021-07-08 02:38:26,904 mvpnet.test INFO: 91/312(scene0651_00)  acc: 87.25  IoU: 63.86  time: 155.7025 (147.0737)  data: 7.0053 (8.4912)  forward_time: 148.5248 (138.4154)  metric_time: 0.1449 (0.1404)
+2021-07-08 02:39:30,715 mvpnet.test INFO: 92/312(scene0651_01)  acc: 87.27  IoU: 64.00  time: 154.4561 (146.1783)  data: 7.0053 (8.3999)  forward_time: 147.2817 (137.6123)  metric_time: 0.1427 (0.1397)
+2021-07-08 02:41:25,623 mvpnet.test INFO: 93/312(scene0651_02)  acc: 87.35  IoU: 64.19  time: 152.5231 (145.8457)  data: 7.0052 (8.3105)  forward_time: 145.3497 (137.3694)  metric_time: 0.1418 (0.1393)
+2021-07-08 02:43:55,623 mvpnet.test INFO: 94/312(scene0430_00)  acc: 87.49  IoU: 64.26  time: 156.2489 (145.8894)  data: 7.0051 (8.2231)  forward_time: 149.0709 (137.5001)  metric_time: 0.1456 (0.1397)
+2021-07-08 02:45:30,590 mvpnet.test INFO: 95/312(scene0430_01)  acc: 87.57  IoU: 64.30  time: 159.8152 (145.3589)  data: 7.0052 (8.1375)  forward_time: 152.6304 (137.0550)  metric_time: 0.1516 (0.1400)
+2021-07-08 02:47:04,211 mvpnet.test INFO: 96/312(scene0689_00)  acc: 87.62  IoU: 64.39  time: 162.7319 (144.8255)  data: 7.0053 (8.0536)  forward_time: 155.5445 (136.6059)  metric_time: 0.1544 (0.1398)
+2021-07-08 02:48:42,348 mvpnet.test INFO: 97/312(scene0357_00)  acc: 87.57  IoU: 64.34  time: 165.1544 (144.3491)  data: 7.0054 (7.9715)  forward_time: 157.9664 (136.2122)  metric_time: 0.1547 (0.1393)
+2021-07-08 02:50:19,094 mvpnet.test INFO: 98/312(scene0357_01)  acc: 87.55  IoU: 64.38  time: 168.2801 (143.8682)  data: 7.0053 (7.8910)  forward_time: 161.0893 (135.8121)  metric_time: 0.1568 (0.1390)
+2021-07-08 02:50:42,486 mvpnet.test INFO: 99/312(scene0574_00)  acc: 87.54  IoU: 64.40  time: 166.7731 (142.6635)  data: 7.0053 (7.8121)  forward_time: 159.5822 (134.6874)  metric_time: 0.1566 (0.1381)
+2021-07-08 02:51:23,983 mvpnet.test INFO: 100/312(scene0574_01)  acc: 87.51  IoU: 64.41  time: 146.0358 (141.6618)  data: 6.2328 (7.9477)  forward_time: 139.6315 (133.5512)  metric_time: 0.1448 (0.1372)
+2021-07-08 02:52:24,642 mvpnet.test INFO: 101/312(scene0574_02)  acc: 87.49  IoU: 64.42  time: 124.7202 (140.8676)  data: 4.5229 (8.1242)  forward_time: 120.0463 (132.5816)  metric_time: 0.1304 (0.1363)
+2021-07-08 02:59:02,916 mvpnet.test INFO: 102/312(scene0329_00)  acc: 87.58  IoU: 64.22  time: 120.9208 (143.3667)  data: 6.2692 (8.3850)  forward_time: 114.5032 (134.8180)  metric_time: 0.1285 (0.1379)
+2021-07-08 03:05:10,841 mvpnet.test INFO: 103/312(scene0329_01)  acc: 87.77  IoU: 64.18  time: 131.8732 (145.5259)  data: 6.2704 (8.3047)  forward_time: 125.4476 (137.0557)  metric_time: 0.1343 (0.1396)
+2021-07-08 03:11:26,262 mvpnet.test INFO: 104/312(scene0329_02)  acc: 87.76  IoU: 63.77  time: 143.7672 (147.7154)  data: 6.2710 (8.2257)  forward_time: 137.3316 (139.3224)  metric_time: 0.1420 (0.1410)
+2021-07-08 03:11:40,836 mvpnet.test INFO: 105/312(scene0153_00)  acc: 87.79  IoU: 64.73  time: 136.2972 (146.4593)  data: 6.2712 (8.1482)  forward_time: 129.8705 (138.1450)  metric_time: 0.1342 (0.1400)
+2021-07-08 03:11:56,153 mvpnet.test INFO: 106/312(scene0153_01)  acc: 87.82  IoU: 65.44  time: 135.2554 (145.2337)  data: 6.2711 (8.0721)  forward_time: 128.8281 (136.9966)  metric_time: 0.1347 (0.1391)
+2021-07-08 03:15:42,856 mvpnet.test INFO: 107/312(scene0616_00)  acc: 87.70  IoU: 64.96  time: 145.4117 (145.9880)  data: 6.2711 (7.9973)  forward_time: 138.9710 (137.8241)  metric_time: 0.1442 (0.1402)
+2021-07-08 03:20:20,275 mvpnet.test INFO: 108/312(scene0616_01)  acc: 87.62  IoU: 64.79  time: 150.9876 (147.1938)  data: 6.2711 (7.9240)  forward_time: 144.5415 (139.1021)  metric_time: 0.1489 (0.1411)
+2021-07-08 03:21:32,778 mvpnet.test INFO: 109/312(scene0671_00)  acc: 87.61  IoU: 64.75  time: 145.1585 (146.5148)  data: 6.2711 (7.8520)  forward_time: 138.7180 (138.4959)  metric_time: 0.1438 (0.1404)
+2021-07-08 03:22:31,203 mvpnet.test INFO: 110/312(scene0671_01)  acc: 87.61  IoU: 64.74  time: 136.8433 (145.7212)  data: 5.7823 (7.9349)  forward_time: 130.8990 (137.6200)  metric_time: 0.1379 (0.1399)
+2021-07-08 03:27:14,567 mvpnet.test INFO: 111/312(scene0618_00)  acc: 87.67  IoU: 64.72  time: 146.3817 (146.9501)  data: 6.7866 (8.1868)  forward_time: 139.4284 (138.5963)  metric_time: 0.1416 (0.1406)
+2021-07-08 03:28:30,050 mvpnet.test INFO: 112/312(scene0382_00)  acc: 87.66  IoU: 64.68  time: 146.9653 (146.3176)  data: 7.1149 (8.1725)  forward_time: 139.6786 (137.9780)  metric_time: 0.1460 (0.1408)
+2021-07-08 03:29:43,484 mvpnet.test INFO: 113/312(scene0382_01)  acc: 87.63  IoU: 64.64  time: 144.8917 (145.6783)  data: 7.1149 (8.1008)  forward_time: 137.6060 (137.4109)  metric_time: 0.1453 (0.1404)
+2021-07-08 03:31:58,080 mvpnet.test INFO: 114/312(scene0490_00)  acc: 87.71  IoU: 64.69  time: 144.1215 (145.5819)  data: 7.1149 (8.0304)  forward_time: 136.8390 (137.3852)  metric_time: 0.1425 (0.1401)
+2021-07-08 03:35:37,802 mvpnet.test INFO: 115/312(scene0621_00)  acc: 87.87  IoU: 64.78  time: 150.3592 (146.2210)  data: 7.1149 (7.9612)  forward_time: 143.0755 (138.0930)  metric_time: 0.1428 (0.1405)
+2021-07-08 03:37:09,910 mvpnet.test INFO: 116/312(scene0607_00)  acc: 87.90  IoU: 64.76  time: 150.2835 (145.7585)  data: 7.1149 (7.8932)  forward_time: 143.0004 (137.6990)  metric_time: 0.1422 (0.1402)
+2021-07-08 03:38:05,307 mvpnet.test INFO: 117/312(scene0607_01)  acc: 87.91  IoU: 64.81  time: 148.1465 (144.9927)  data: 7.1149 (7.8263)  forward_time: 140.8649 (137.0008)  metric_time: 0.1410 (0.1396)
+2021-07-08 03:40:12,396 mvpnet.test INFO: 118/312(scene0149_00)  acc: 87.94  IoU: 64.93  time: 149.6636 (144.8422)  data: 7.1149 (7.7606)  forward_time: 142.3821 (136.9163)  metric_time: 0.1412 (0.1394)
+2021-07-08 03:41:45,390 mvpnet.test INFO: 119/312(scene0695_00)  acc: 87.92  IoU: 64.98  time: 153.1437 (144.4102)  data: 7.1150 (7.6959)  forward_time: 145.8591 (136.5493)  metric_time: 0.1443 (0.1391)
+2021-07-08 03:43:48,049 mvpnet.test INFO: 120/312(scene0695_01)  acc: 87.97  IoU: 65.28  time: 157.2018 (144.2304)  data: 6.6251 (7.7291)  forward_time: 150.4030 (136.3367)  metric_time: 0.1477 (0.1389)
+2021-07-08 03:46:10,674 mvpnet.test INFO: 121/312(scene0695_02)  acc: 88.00  IoU: 65.46  time: 161.3001 (144.2172)  data: 5.8860 (7.7573)  forward_time: 155.2366 (136.2955)  metric_time: 0.1508 (0.1387)
+2021-07-08 03:49:45,915 mvpnet.test INFO: 122/312(scene0695_03)  acc: 87.93  IoU: 65.73  time: 152.1485 (144.7946)  data: 5.6910 (7.9470)  forward_time: 146.2881 (136.6831)  metric_time: 0.1438 (0.1388)
+2021-07-08 03:52:18,004 mvpnet.test INFO: 123/312(scene0389_00)  acc: 87.95  IoU: 65.82  time: 141.3567 (144.8535)  data: 5.6897 (7.8829)  forward_time: 135.5070 (136.8059)  metric_time: 0.1360 (0.1390)
+2021-07-08 03:52:59,027 mvpnet.test INFO: 124/312(scene0377_00)  acc: 87.96  IoU: 65.80  time: 124.6368 (144.0228)  data: 5.6891 (7.8199)  forward_time: 118.7998 (136.0388)  metric_time: 0.1257 (0.1385)
+2021-07-08 03:54:31,054 mvpnet.test INFO: 125/312(scene0377_01)  acc: 87.98  IoU: 65.80  time: 128.5095 (143.6101)  data: 5.6889 (7.7578)  forward_time: 122.6690 (135.6885)  metric_time: 0.1289 (0.1383)
+2021-07-08 03:55:13,390 mvpnet.test INFO: 126/312(scene0377_02)  acc: 88.01  IoU: 65.81  time: 129.8604 (142.8127)  data: 5.6889 (7.6968)  forward_time: 124.0180 (134.9527)  metric_time: 0.1306 (0.1378)
+2021-07-08 03:56:37,540 mvpnet.test INFO: 127/312(scene0342_00)  acc: 88.06  IoU: 65.82  time: 122.7328 (142.3544)  data: 5.6889 (7.6366)  forward_time: 116.9030 (134.5551)  metric_time: 0.1220 (0.1373)
+2021-07-08 03:57:16,300 mvpnet.test INFO: 128/312(scene0139_00)  acc: 88.07  IoU: 65.94  time: 110.7998 (141.5513)  data: 5.6890 (7.5775)  forward_time: 104.9803 (133.8119)  metric_time: 0.1129 (0.1367)
+2021-07-08 04:01:31,143 mvpnet.test INFO: 129/312(scene0629_00)  acc: 88.03  IoU: 65.74  time: 119.9167 (142.4228)  data: 5.6889 (7.5192)  forward_time: 114.0884 (134.7409)  metric_time: 0.1191 (0.1371)
+2021-07-08 04:05:22,756 mvpnet.test INFO: 130/312(scene0629_01)  acc: 87.97  IoU: 65.56  time: 128.5762 (143.1036)  data: 5.6588 (7.5874)  forward_time: 122.7687 (135.3526)  metric_time: 0.1261 (0.1378)
+2021-07-08 04:08:38,815 mvpnet.test INFO: 131/312(scene0629_02)  acc: 87.93  IoU: 65.40  time: 124.2109 (143.5048)  data: 4.7496 (7.6660)  forward_time: 119.3120 (135.6744)  metric_time: 0.1258 (0.1384)
+2021-07-08 04:11:41,024 mvpnet.test INFO: 132/312(scene0496_00)  acc: 87.96  IoU: 65.41  time: 129.5473 (143.7958)  data: 5.1526 (7.7183)  forward_time: 124.2423 (135.9125)  metric_time: 0.1253 (0.1385)
+2021-07-08 04:13:00,870 mvpnet.test INFO: 133/312(scene0633_00)  acc: 87.88  IoU: 65.35  time: 129.8679 (143.3185)  data: 5.1527 (7.6608)  forward_time: 124.5631 (135.4933)  metric_time: 0.1249 (0.1381)
+2021-07-08 04:13:57,686 mvpnet.test INFO: 134/312(scene0633_01)  acc: 87.83  IoU: 65.35  time: 125.9790 (142.6778)  data: 5.1526 (7.6040)  forward_time: 120.6763 (134.9098)  metric_time: 0.1235 (0.1377)
+2021-07-08 04:15:32,270 mvpnet.test INFO: 135/312(scene0518_00)  acc: 87.78  IoU: 65.28  time: 119.7221 (142.3241)  data: 5.1525 (7.5481)  forward_time: 114.4213 (134.6119)  metric_time: 0.1224 (0.1379)
+2021-07-08 04:16:44,649 mvpnet.test INFO: 136/312(scene0652_00)  acc: 87.73  IoU: 65.27  time: 118.7357 (141.8136)  data: 5.1525 (7.4931)  forward_time: 113.4323 (134.1564)  metric_time: 0.1248 (0.1379)
+2021-07-08 04:17:15,417 mvpnet.test INFO: 137/312(scene0406_00)  acc: 87.73  IoU: 65.83  time: 117.5043 (141.0089)  data: 5.1524 (7.4388)  forward_time: 112.2020 (133.4068)  metric_time: 0.1236 (0.1372)
+2021-07-08 04:17:39,800 mvpnet.test WARNING: scene0406_01: There are 187 points without prediction.
+2021-07-08 04:17:39,847 mvpnet.test INFO: 138/312(scene0406_01)  acc: 87.75  IoU: 66.29  time: 112.3715 (140.1702)  data: 5.1524 (7.3853)  forward_time: 107.0734 (132.6224)  metric_time: 0.1200 (0.1366)
+2021-07-08 04:18:11,331 mvpnet.test WARNING: scene0406_02: There are 24 points without prediction.
+2021-07-08 04:18:11,369 mvpnet.test INFO: 139/312(scene0406_02)  acc: 87.78  IoU: 66.69  time: 109.2979 (139.3941)  data: 5.1523 (7.3325)  forward_time: 104.0034 (131.8999)  metric_time: 0.1166 (0.1359)
+2021-07-08 04:19:35,465 mvpnet.test INFO: 140/312(scene0144_00)  acc: 87.77  IoU: 66.67  time: 107.3697 (139.0019)  data: 5.1073 (7.3572)  forward_time: 102.1216 (131.4835)  metric_time: 0.1153 (0.1356)
+2021-07-08 04:20:56,936 mvpnet.test INFO: 141/312(scene0144_01)  acc: 87.77  IoU: 66.69  time: 104.3120 (138.5968)  data: 5.3820 (7.4228)  forward_time: 98.7909 (131.0132)  metric_time: 0.1141 (0.1352)
+2021-07-08 04:21:42,247 mvpnet.test INFO: 142/312(scene0494_00)  acc: 87.80  IoU: 66.71  time: 95.8155 (137.9444)  data: 4.1579 (7.4170)  forward_time: 91.5249 (130.3673)  metric_time: 0.1089 (0.1346)
+2021-07-08 04:22:20,321 mvpnet.test INFO: 143/312(scene0278_00)  acc: 87.81  IoU: 66.80  time: 90.1148 (137.2509)  data: 4.1579 (7.3655)  forward_time: 85.8294 (129.7258)  metric_time: 0.1043 (0.1342)
+2021-07-08 04:23:13,111 mvpnet.test INFO: 144/312(scene0278_01)  acc: 87.78  IoU: 66.65  time: 90.7032 (136.6684)  data: 4.1578 (7.3148)  forward_time: 86.4185 (129.1946)  metric_time: 0.1041 (0.1338)
+2021-07-08 04:24:08,232 mvpnet.test INFO: 145/312(scene0316_00)  acc: 87.82  IoU: 66.65  time: 88.8579 (136.1098)  data: 4.1578 (7.2647)  forward_time: 84.5750 (128.6866)  metric_time: 0.1025 (0.1334)
+2021-07-08 04:25:17,181 mvpnet.test INFO: 146/312(scene0609_00)  acc: 87.79  IoU: 66.58  time: 90.1885 (135.6529)  data: 4.1578 (7.2153)  forward_time: 85.9060 (128.2797)  metric_time: 0.1020 (0.1329)
+2021-07-08 04:26:59,601 mvpnet.test INFO: 147/312(scene0609_01)  acc: 87.77  IoU: 66.51  time: 91.1020 (135.4284)  data: 4.1579 (7.1665)  forward_time: 86.8165 (128.1040)  metric_time: 0.1046 (0.1329)
+2021-07-08 04:29:19,767 mvpnet.test INFO: 148/312(scene0609_02)  acc: 87.78  IoU: 66.49  time: 96.1723 (135.4602)  data: 4.1578 (7.1185)  forward_time: 91.8837 (128.1839)  metric_time: 0.1075 (0.1328)
+2021-07-08 04:30:28,213 mvpnet.test INFO: 149/312(scene0609_03)  acc: 87.82  IoU: 66.50  time: 86.8525 (135.0134)  data: 4.1581 (7.0711)  forward_time: 82.5733 (127.7852)  metric_time: 0.1008 (0.1323)
+2021-07-08 04:31:42,066 mvpnet.test WARNING: scene0084_00: There are 88 points without prediction.
+2021-07-08 04:31:42,168 mvpnet.test INFO: 150/312(scene0084_00)  acc: 87.86  IoU: 66.54  time: 78.9696 (134.6090)  data: 3.5051 (7.0467)  forward_time: 75.3514 (127.4054)  metric_time: 0.0946 (0.1321)
+2021-07-08 04:34:04,378 mvpnet.test INFO: 151/312(scene0084_01)  acc: 87.88  IoU: 66.53  time: 76.2771 (134.6590)  data: 4.7344 (7.2803)  forward_time: 71.4373 (127.2221)  metric_time: 0.0892 (0.1319)
+2021-07-08 04:35:14,641 mvpnet.test INFO: 152/312(scene0084_02)  acc: 87.90  IoU: 66.48  time: 70.6796 (134.2381)  data: 4.6099 (7.3120)  forward_time: 65.9716 (126.7699)  metric_time: 0.0860 (0.1316)
+2021-07-08 04:39:25,767 mvpnet.test INFO: 153/312(scene0696_00)  acc: 87.87  IoU: 66.42  time: 79.2437 (134.9971)  data: 5.2648 (7.3496)  forward_time: 73.8748 (127.4909)  metric_time: 0.0907 (0.1319)
+2021-07-08 04:43:00,224 mvpnet.test INFO: 154/312(scene0696_01)  acc: 87.77  IoU: 66.20  time: 87.1257 (135.5098)  data: 5.2653 (7.3023)  forward_time: 81.7476 (128.0501)  metric_time: 0.0979 (0.1325)
+2021-07-08 04:48:28,730 mvpnet.test INFO: 155/312(scene0696_02)  acc: 87.65  IoU: 65.95  time: 98.8218 (136.7469)  data: 5.2655 (7.2555)  forward_time: 93.4371 (129.3331)  metric_time: 0.1027 (0.1333)
+2021-07-08 04:51:09,768 mvpnet.test INFO: 156/312(scene0351_00)  acc: 87.71  IoU: 66.15  time: 103.2547 (136.9016)  data: 5.2656 (7.2093)  forward_time: 97.8700 (129.5339)  metric_time: 0.1024 (0.1334)
+2021-07-08 04:53:17,972 mvpnet.test INFO: 157/312(scene0351_01)  acc: 87.78  IoU: 66.28  time: 108.1266 (136.8466)  data: 5.2657 (7.1637)  forward_time: 102.7342 (129.5242)  metric_time: 0.1090 (0.1337)
+2021-07-08 04:55:52,462 mvpnet.test INFO: 158/312(scene0643_00)  acc: 87.76  IoU: 66.27  time: 114.6295 (136.9575)  data: 5.2658 (7.1187)  forward_time: 109.2322 (129.6802)  metric_time: 0.1132 (0.1337)
+2021-07-08 05:01:18,351 mvpnet.test INFO: 159/312(scene0644_00)  acc: 87.74  IoU: 66.06  time: 129.3478 (138.1383)  data: 6.3471 (7.2094)  forward_time: 122.8567 (130.7695)  metric_time: 0.1237 (0.1344)
+2021-07-08 05:07:18,676 mvpnet.test INFO: 160/312(scene0645_00)  acc: 87.80  IoU: 66.48  time: 143.1592 (139.5184)  data: 6.7289 (7.2792)  forward_time: 136.2695 (132.0780)  metric_time: 0.1338 (0.1353)
+2021-07-08 05:13:32,236 mvpnet.test INFO: 161/312(scene0645_01)  acc: 87.87  IoU: 66.85  time: 157.7637 (140.9631)  data: 9.0546 (7.6242)  forward_time: 148.5335 (133.1762)  metric_time: 0.1430 (0.1362)
+2021-07-08 05:18:02,433 mvpnet.test INFO: 162/312(scene0645_02)  acc: 87.91  IoU: 66.96  time: 169.0080 (141.7559)  data: 9.6499 (7.6910)  forward_time: 159.1714 (133.9015)  metric_time: 0.1519 (0.1368)
+2021-07-08 05:18:44,055 mvpnet.test INFO: 163/312(scene0081_00)  acc: 87.88  IoU: 66.92  time: 169.1853 (141.1453)  data: 9.7504 (7.6564)  forward_time: 159.2490 (133.3262)  metric_time: 0.1511 (0.1362)
+2021-07-08 05:21:51,554 mvpnet.test INFO: 164/312(scene0081_01)  acc: 87.94  IoU: 66.95  time: 175.9207 (141.4262)  data: 9.7504 (7.6100)  forward_time: 165.9787 (133.6533)  metric_time: 0.1548 (0.1363)
+2021-07-08 05:24:27,405 mvpnet.test INFO: 165/312(scene0081_02)  acc: 88.01  IoU: 67.00  time: 180.9571 (141.5131)  data: 9.7505 (7.5642)  forward_time: 171.0084 (133.7857)  metric_time: 0.1611 (0.1367)
+2021-07-08 05:27:20,048 mvpnet.test INFO: 166/312(scene0647_00)  acc: 88.03  IoU: 67.12  time: 186.1419 (141.6995)  data: 9.7507 (7.5189)  forward_time: 176.1851 (134.0169)  metric_time: 0.1661 (0.1369)
+2021-07-08 05:29:54,947 mvpnet.test INFO: 167/312(scene0647_01)  acc: 88.06  IoU: 67.10  time: 188.7658 (141.7781)  data: 9.7509 (7.4742)  forward_time: 178.8071 (134.1401)  metric_time: 0.1673 (0.1370)
+2021-07-08 05:30:47,177 mvpnet.test INFO: 168/312(scene0535_00)  acc: 87.99  IoU: 66.89  time: 184.3690 (141.2482)  data: 9.7509 (7.4300)  forward_time: 174.4126 (133.6548)  metric_time: 0.1654 (0.1367)
+2021-07-08 05:34:20,864 mvpnet.test INFO: 169/312(scene0353_00)  acc: 87.93  IoU: 66.78  time: 191.6311 (141.6743)  data: 10.4212 (7.4652)  forward_time: 180.9971 (134.0454)  metric_time: 0.1715 (0.1369)
+2021-07-08 05:37:56,871 mvpnet.test INFO: 170/312(scene0353_01)  acc: 87.79  IoU: 66.45  time: 198.7336 (142.1090)  data: 10.7298 (7.4775)  forward_time: 187.7864 (134.4675)  metric_time: 0.1750 (0.1371)
+2021-07-08 05:41:22,158 mvpnet.test INFO: 171/312(scene0353_02)  acc: 87.67  IoU: 66.15  time: 201.8876 (142.4763)  data: 10.3626 (7.6387)  forward_time: 191.3035 (134.6735)  metric_time: 0.1775 (0.1372)
+2021-07-08 05:42:48,268 mvpnet.test INFO: 172/312(scene0559_00)  acc: 87.69  IoU: 66.15  time: 202.6800 (142.1505)  data: 10.5713 (7.6888)  forward_time: 191.8878 (134.2980)  metric_time: 0.1770 (0.1369)
+2021-07-08 05:44:03,385 mvpnet.test INFO: 173/312(scene0559_01)  acc: 87.67  IoU: 66.14  time: 193.8796 (141.7652)  data: 10.1264 (7.6688)  forward_time: 183.5362 (133.9329)  metric_time: 0.1740 (0.1368)
+2021-07-08 05:45:58,031 mvpnet.test INFO: 174/312(scene0559_02)  acc: 87.71  IoU: 66.15  time: 188.8889 (141.6102)  data: 10.1260 (7.6250)  forward_time: 178.5533 (133.8219)  metric_time: 0.1680 (0.1366)
+2021-07-08 05:48:45,857 mvpnet.test INFO: 175/312(scene0593_00)  acc: 87.73  IoU: 66.16  time: 180.8549 (141.7592)  data: 10.1258 (7.5817)  forward_time: 170.5252 (134.0140)  metric_time: 0.1635 (0.1368)
+2021-07-08 05:51:27,804 mvpnet.test INFO: 176/312(scene0593_01)  acc: 87.72  IoU: 66.14  time: 180.9004 (141.8732)  data: 10.1257 (7.5389)  forward_time: 170.5710 (134.1709)  metric_time: 0.1636 (0.1368)
+2021-07-08 05:54:45,904 mvpnet.test INFO: 177/312(scene0246_00)  acc: 87.68  IoU: 66.11  time: 184.3952 (142.1891)  data: 10.1257 (7.4965)  forward_time: 174.0650 (134.5288)  metric_time: 0.1639 (0.1371)
+2021-07-08 05:58:26,798 mvpnet.test INFO: 178/312(scene0653_00)  acc: 87.73  IoU: 66.23  time: 187.7154 (142.6288)  data: 10.1258 (7.4547)  forward_time: 177.3768 (135.0095)  metric_time: 0.1691 (0.1376)
+2021-07-08 06:04:08,410 mvpnet.test INFO: 179/312(scene0653_01)  acc: 87.77  IoU: 66.33  time: 188.5015 (143.7342)  data: 10.0011 (7.5196)  forward_time: 178.2859 (136.0491)  metric_time: 0.1703 (0.1384)
+2021-07-08 06:07:21,762 mvpnet.test INFO: 180/312(scene0064_00)  acc: 87.82  IoU: 66.47  time: 180.1529 (144.0084)  data: 9.5111 (7.5258)  forward_time: 170.4389 (136.3168)  metric_time: 0.1649 (0.1386)
+2021-07-08 06:10:57,599 mvpnet.test INFO: 181/312(scene0064_01)  acc: 87.84  IoU: 66.51  time: 172.2668 (144.4030)  data: 9.0747 (7.7836)  forward_time: 162.9993 (136.4534)  metric_time: 0.1596 (0.1388)
+2021-07-08 06:12:10,141 mvpnet.test WARNING: scene0356_00: There are 102 points without prediction.
+2021-07-08 06:12:10,215 mvpnet.test INFO: 182/312(scene0356_00)  acc: 87.86  IoU: 66.56  time: 162.3877 (144.0107)  data: 8.7123 (7.8026)  forward_time: 153.4926 (136.0426)  metric_time: 0.1517 (0.1384)
+2021-07-08 06:13:21,641 mvpnet.test INFO: 183/312(scene0356_01)  acc: 87.88  IoU: 66.60  time: 163.8780 (143.6163)  data: 8.7698 (7.7774)  forward_time: 154.9235 (135.6737)  metric_time: 0.1535 (0.1381)
+2021-07-08 06:14:32,433 mvpnet.test INFO: 184/312(scene0356_02)  acc: 87.89  IoU: 66.65  time: 158.0427 (143.2226)  data: 8.7698 (7.7354)  forward_time: 149.0942 (135.3226)  metric_time: 0.1496 (0.1377)
+2021-07-08 06:18:21,903 mvpnet.test INFO: 185/312(scene0030_00)  acc: 87.93  IoU: 66.67  time: 161.7236 (143.6863)  data: 8.7697 (7.6938)  forward_time: 152.7704 (135.8270)  metric_time: 0.1527 (0.1384)
+2021-07-08 06:22:54,964 mvpnet.test INFO: 186/312(scene0030_01)  acc: 87.97  IoU: 66.70  time: 166.7445 (144.3781)  data: 8.7696 (7.6527)  forward_time: 157.7891 (136.5594)  metric_time: 0.1564 (0.1390)
+2021-07-08 06:27:27,124 mvpnet.test INFO: 187/312(scene0030_02)  acc: 88.02  IoU: 66.72  time: 172.6076 (145.0578)  data: 8.7697 (7.6120)  forward_time: 163.6448 (137.2789)  metric_time: 0.1605 (0.1395)
+2021-07-08 06:30:33,172 mvpnet.test INFO: 188/312(scene0222_00)  acc: 88.00  IoU: 66.75  time: 179.2984 (145.2747)  data: 8.7698 (7.5718)  forward_time: 170.3285 (137.5356)  metric_time: 0.1663 (0.1398)
+2021-07-08 06:33:58,086 mvpnet.test INFO: 189/312(scene0222_01)  acc: 87.99  IoU: 66.71  time: 178.8597 (145.5886)  data: 8.5999 (7.5846)  forward_time: 170.0591 (137.8363)  metric_time: 0.1661 (0.1400)
+2021-07-08 06:35:33,478 mvpnet.test INFO: 190/312(scene0338_00)  acc: 87.99  IoU: 66.68  time: 172.8289 (145.3257)  data: 8.3453 (7.5684)  forward_time: 164.2873 (137.5900)  metric_time: 0.1624 (0.1398)
+2021-07-08 06:36:46,128 mvpnet.test INFO: 191/312(scene0338_01)  acc: 88.01  IoU: 66.71  time: 166.1970 (144.9472)  data: 7.7421 (7.6494)  forward_time: 158.2643 (137.1308)  metric_time: 0.1582 (0.1394)
+2021-07-08 06:37:35,399 mvpnet.test INFO: 192/312(scene0338_02)  acc: 88.03  IoU: 66.80  time: 164.3551 (144.4515)  data: 7.1071 (7.6285)  forward_time: 157.0556 (136.6563)  metric_time: 0.1597 (0.1392)
+2021-07-08 06:39:57,853 mvpnet.test INFO: 193/312(scene0378_00)  acc: 88.05  IoU: 66.87  time: 167.7219 (144.4412)  data: 7.1913 (7.6196)  forward_time: 160.3342 (136.6547)  metric_time: 0.1634 (0.1395)
+2021-07-08 06:43:05,534 mvpnet.test INFO: 194/312(scene0378_01)  acc: 88.06  IoU: 66.92  time: 171.3737 (144.6629)  data: 7.1913 (7.5805)  forward_time: 163.9816 (136.9152)  metric_time: 0.1671 (0.1397)
+2021-07-08 06:45:43,036 mvpnet.test INFO: 195/312(scene0378_02)  acc: 88.08  IoU: 66.98  time: 170.8576 (144.7284)  data: 7.1913 (7.5418)  forward_time: 163.4648 (137.0192)  metric_time: 0.1680 (0.1400)
+2021-07-08 06:47:34,387 mvpnet.test INFO: 196/312(scene0660_00)  acc: 88.13  IoU: 67.00  time: 168.3278 (144.5590)  data: 7.1913 (7.5036)  forward_time: 160.9364 (136.8882)  metric_time: 0.1661 (0.1398)
+2021-07-08 06:48:08,042 mvpnet.test INFO: 197/312(scene0553_00)  acc: 88.13  IoU: 67.04  time: 160.1054 (143.9988)  data: 7.1915 (7.4657)  forward_time: 152.7213 (136.3664)  metric_time: 0.1601 (0.1394)
+2021-07-08 06:48:33,152 mvpnet.test INFO: 198/312(scene0553_01)  acc: 88.14  IoU: 67.13  time: 150.3162 (143.4014)  data: 7.1913 (7.4282)  forward_time: 142.9424 (135.8067)  metric_time: 0.1527 (0.1391)
+2021-07-08 06:49:12,238 mvpnet.test INFO: 199/312(scene0553_02)  acc: 88.15  IoU: 67.22  time: 135.1900 (142.8798)  data: 6.3152 (7.3991)  forward_time: 128.7038 (135.3146)  metric_time: 0.1436 (0.1389)
+2021-07-08 06:49:53,329 mvpnet.test INFO: 200/312(scene0527_00)  acc: 88.12  IoU: 67.20  time: 127.5769 (142.3734)  data: 6.0052 (7.3745)  forward_time: 121.4054 (134.8331)  metric_time: 0.1398 (0.1387)
+2021-07-08 06:52:28,024 mvpnet.test INFO: 201/312(scene0663_00)  acc: 88.13  IoU: 67.20  time: 124.5198 (142.4344)  data: 4.3543 (7.4441)  forward_time: 120.0002 (134.8244)  metric_time: 0.1390 (0.1388)
+2021-07-08 06:56:34,081 mvpnet.test INFO: 202/312(scene0663_01)  acc: 88.15  IoU: 67.23  time: 133.1919 (142.9448)  data: 4.7691 (7.5038)  forward_time: 128.2499 (135.2749)  metric_time: 0.1450 (0.1391)
+2021-07-08 06:57:26,453 mvpnet.test WARNING: scene0663_02: There are 74 points without prediction.
+2021-07-08 06:57:26,496 mvpnet.test INFO: 203/312(scene0663_02)  acc: 88.15  IoU: 67.22  time: 132.2413 (142.5011)  data: 4.7403 (7.4796)  forward_time: 127.3304 (134.8558)  metric_time: 0.1429 (0.1386)
+2021-07-08 06:57:44,811 mvpnet.test INFO: 204/312(scene0664_00)  acc: 88.16  IoU: 67.44  time: 129.6174 (141.8953)  data: 4.7404 (7.4432)  forward_time: 124.7083 (134.2870)  metric_time: 0.1413 (0.1381)
+2021-07-08 06:58:04,671 mvpnet.test INFO: 205/312(scene0664_01)  acc: 88.16  IoU: 67.57  time: 119.1370 (141.3029)  data: 4.7403 (7.4070)  forward_time: 114.2396 (133.7312)  metric_time: 0.1318 (0.1378)
+2021-07-08 06:58:30,458 mvpnet.test WARNING: scene0664_02: There are 75 points without prediction.
+2021-07-08 06:58:30,503 mvpnet.test INFO: 206/312(scene0664_02)  acc: 88.16  IoU: 67.70  time: 106.7755 (140.7450)  data: 4.7401 (7.3713)  forward_time: 101.8899 (133.2097)  metric_time: 0.1219 (0.1373)
+2021-07-08 07:01:43,387 mvpnet.test INFO: 207/312(scene0334_00)  acc: 88.20  IoU: 67.72  time: 102.8117 (140.9957)  data: 4.7399 (7.3358)  forward_time: 97.9321 (133.4955)  metric_time: 0.1195 (0.1376)
+2021-07-08 07:04:59,397 mvpnet.test INFO: 208/312(scene0334_01)  acc: 88.27  IoU: 67.75  time: 103.3099 (141.2589)  data: 4.7402 (7.3008)  forward_time: 98.4292 (133.7934)  metric_time: 0.1202 (0.1379)
+2021-07-08 07:08:48,029 mvpnet.test INFO: 209/312(scene0334_02)  acc: 88.35  IoU: 67.79  time: 104.4958 (141.6750)  data: 4.8147 (7.3208)  forward_time: 99.5415 (134.1892)  metric_time: 0.1200 (0.1381)
+2021-07-08 07:11:47,873 mvpnet.test WARNING: scene0046_00: There are 168 points without prediction.
+2021-07-08 07:11:48,064 mvpnet.test INFO: 210/312(scene0046_00)  acc: 88.33  IoU: 67.97  time: 108.7280 (141.8568)  data: 4.9597 (7.3211)  forward_time: 103.6222 (134.3703)  metric_time: 0.1247 (0.1383)
+2021-07-08 07:14:45,620 mvpnet.test INFO: 211/312(scene0046_01)  acc: 88.28  IoU: 68.06  time: 113.9734 (142.0251)  data: 5.6376 (7.4596)  forward_time: 108.1841 (134.4000)  metric_time: 0.1293 (0.1384)
+2021-07-08 07:18:08,547 mvpnet.test INFO: 212/312(scene0046_02)  acc: 88.27  IoU: 68.09  time: 121.6562 (142.3111)  data: 6.1779 (7.4923)  forward_time: 115.3223 (134.6531)  metric_time: 0.1325 (0.1386)
+2021-07-08 07:21:14,506 mvpnet.test INFO: 213/312(scene0203_00)  acc: 88.20  IoU: 67.95  time: 123.8314 (142.5150)  data: 6.3145 (7.4976)  forward_time: 117.3617 (134.8516)  metric_time: 0.1315 (0.1388)
+2021-07-08 07:24:22,769 mvpnet.test INFO: 214/312(scene0203_01)  acc: 88.17  IoU: 67.91  time: 123.8605 (142.7278)  data: 6.3146 (7.4627)  forward_time: 117.3920 (135.0991)  metric_time: 0.1303 (0.1389)
+2021-07-08 07:27:22,918 mvpnet.test INFO: 215/312(scene0203_02)  acc: 88.15  IoU: 67.86  time: 124.9929 (142.9010)  data: 6.3146 (7.4282)  forward_time: 118.5212 (135.3064)  metric_time: 0.1298 (0.1390)
+2021-07-08 07:29:55,073 mvpnet.test INFO: 216/312(scene0088_00)  acc: 88.21  IoU: 67.90  time: 127.0331 (142.9437)  data: 6.3147 (7.3940)  forward_time: 120.5599 (135.3833)  metric_time: 0.1314 (0.1390)
+2021-07-08 07:31:54,572 mvpnet.test INFO: 217/312(scene0088_01)  acc: 88.17  IoU: 67.85  time: 131.3254 (142.8361)  data: 6.3146 (7.3601)  forward_time: 124.8485 (135.3097)  metric_time: 0.1345 (0.1389)
+2021-07-08 07:34:24,075 mvpnet.test INFO: 218/312(scene0088_02)  acc: 88.19  IoU: 67.86  time: 137.5451 (142.8666)  data: 6.3147 (7.3265)  forward_time: 131.0650 (135.3737)  metric_time: 0.1374 (0.1390)
+2021-07-08 07:36:37,652 mvpnet.test INFO: 219/312(scene0088_03)  acc: 88.23  IoU: 67.88  time: 142.2696 (142.8243)  data: 6.5906 (7.3256)  forward_time: 135.5112 (135.3325)  metric_time: 0.1389 (0.1389)
+2021-07-08 07:38:34,423 mvpnet.test INFO: 220/312(scene0086_00)  acc: 88.25  IoU: 67.99  time: 146.0536 (142.7064)  data: 6.7204 (7.3153)  forward_time: 139.1618 (135.2248)  metric_time: 0.1398 (0.1388)
+2021-07-08 07:40:45,997 mvpnet.test INFO: 221/312(scene0086_01)  acc: 88.26  IoU: 68.09  time: 144.8976 (142.6563)  data: 7.0514 (7.4087)  forward_time: 137.6774 (135.0814)  metric_time: 0.1373 (0.1386)
+2021-07-08 07:42:45,235 mvpnet.test INFO: 222/312(scene0086_02)  acc: 88.29  IoU: 68.19  time: 138.5566 (142.5513)  data: 6.4669 (7.4108)  forward_time: 131.9262 (134.9745)  metric_time: 0.1332 (0.1385)
+2021-07-08 07:45:21,890 mvpnet.test INFO: 223/312(scene0670_00)  acc: 88.27  IoU: 68.31  time: 143.7686 (142.6142)  data: 7.5600 (7.4868)  forward_time: 136.0386 (134.9614)  metric_time: 0.1384 (0.1386)
+2021-07-08 07:49:31,547 mvpnet.test INFO: 224/312(scene0670_01)  acc: 88.19  IoU: 68.22  time: 155.3357 (143.0900)  data: 7.5600 (7.4536)  forward_time: 147.5959 (135.4700)  metric_time: 0.1467 (0.1389)
+2021-07-08 07:50:48,479 mvpnet.test INFO: 225/312(scene0256_00)  acc: 88.18  IoU: 68.30  time: 158.1893 (142.7972)  data: 7.5602 (7.4206)  forward_time: 150.4481 (135.2105)  metric_time: 0.1476 (0.1387)
+2021-07-08 07:51:49,714 mvpnet.test INFO: 226/312(scene0256_01)  acc: 88.19  IoU: 68.38  time: 159.9595 (142.4379)  data: 7.5603 (7.3879)  forward_time: 152.2155 (134.8842)  metric_time: 0.1497 (0.1384)
+2021-07-08 07:52:50,310 mvpnet.test INFO: 227/312(scene0256_02)  acc: 88.18  IoU: 68.41  time: 153.3451 (142.0790)  data: 7.5602 (7.3555)  forward_time: 145.6048 (134.5577)  metric_time: 0.1463 (0.1383)
+2021-07-08 07:58:45,268 mvpnet.test INFO: 228/312(scene0249_00)  acc: 88.24  IoU: 68.42  time: 161.2925 (143.0086)  data: 7.5597 (7.3234)  forward_time: 153.5467 (135.5185)  metric_time: 0.1494 (0.1389)
+2021-07-08 07:59:52,850 mvpnet.test INFO: 229/312(scene0441_00)  acc: 88.25  IoU: 68.44  time: 153.2400 (142.6806)  data: 7.1298 (7.3042)  forward_time: 145.9302 (135.2102)  metric_time: 0.1441 (0.1386)
+2021-07-08 08:01:28,651 mvpnet.test INFO: 230/312(scene0658_00)  acc: 88.27  IoU: 68.47  time: 149.0283 (142.4777)  data: 6.9950 (7.2929)  forward_time: 141.8597 (135.0187)  metric_time: 0.1401 (0.1385)
+2021-07-08 08:04:20,988 mvpnet.test INFO: 231/312(scene0704_00)  acc: 88.19  IoU: 68.45  time: 148.7673 (142.6064)  data: 6.6618 (7.3909)  forward_time: 141.9306 (135.0492)  metric_time: 0.1415 (0.1387)
+2021-07-08 08:06:55,253 mvpnet.test INFO: 232/312(scene0704_01)  acc: 88.18  IoU: 68.49  time: 146.3342 (142.6564)  data: 6.3583 (7.3950)  forward_time: 139.8036 (135.0952)  metric_time: 0.1392 (0.1386)
+2021-07-08 08:10:13,258 mvpnet.test INFO: 233/312(scene0187_00)  acc: 88.24  IoU: 68.52  time: 146.9365 (142.8929)  data: 7.1276 (7.4660)  forward_time: 139.6382 (135.2607)  metric_time: 0.1378 (0.1387)
+2021-07-08 08:12:30,023 mvpnet.test INFO: 234/312(scene0187_01)  acc: 88.27  IoU: 68.51  time: 144.3616 (142.8668)  data: 7.1276 (7.4342)  forward_time: 137.0654 (135.2665)  metric_time: 0.1362 (0.1386)
+2021-07-08 08:15:15,639 mvpnet.test INFO: 235/312(scene0131_00)  acc: 88.28  IoU: 68.49  time: 143.6348 (142.9632)  data: 7.1277 (7.4027)  forward_time: 136.3436 (135.3943)  metric_time: 0.1346 (0.1386)
+2021-07-08 08:17:38,983 mvpnet.test INFO: 236/312(scene0131_01)  acc: 88.30  IoU: 68.47  time: 143.1943 (142.9648)  data: 7.1278 (7.3715)  forward_time: 135.8995 (135.4268)  metric_time: 0.1374 (0.1389)
+2021-07-08 08:19:36,639 mvpnet.test INFO: 237/312(scene0131_02)  acc: 88.31  IoU: 68.45  time: 143.1022 (142.8585)  data: 7.1278 (7.3406)  forward_time: 135.8074 (135.3515)  metric_time: 0.1378 (0.1389)
+2021-07-08 08:24:40,293 mvpnet.test INFO: 238/312(scene0207_00)  acc: 88.26  IoU: 68.41  time: 150.8098 (143.5313)  data: 7.1280 (7.3099)  forward_time: 143.5084 (136.0544)  metric_time: 0.1431 (0.1393)
+2021-07-08 08:29:14,397 mvpnet.test INFO: 239/312(scene0207_01)  acc: 88.25  IoU: 68.39  time: 157.8361 (144.0753)  data: 7.5936 (7.3480)  forward_time: 150.0633 (136.5600)  metric_time: 0.1483 (0.1397)
+2021-07-08 08:35:34,295 mvpnet.test INFO: 240/312(scene0207_02)  acc: 88.22  IoU: 68.37  time: 170.9924 (145.0538)  data: 8.2883 (7.3960)  forward_time: 162.5166 (137.4897)  metric_time: 0.1568 (0.1403)
+2021-07-08 08:36:30,030 mvpnet.test INFO: 241/312(scene0461_00)  acc: 88.23  IoU: 68.39  time: 167.2005 (144.6847)  data: 8.2107 (7.4750)  forward_time: 158.8051 (137.0421)  metric_time: 0.1545 (0.1400)
+2021-07-08 08:40:21,289 mvpnet.test INFO: 242/312(scene0011_00)  acc: 88.18  IoU: 68.14  time: 172.8016 (145.0410)  data: 8.6841 (7.5156)  forward_time: 163.9280 (137.3575)  metric_time: 0.1586 (0.1402)
+2021-07-08 08:44:47,565 mvpnet.test INFO: 243/312(scene0011_01)  acc: 88.13  IoU: 68.06  time: 178.2826 (145.5379)  data: 8.1561 (7.5417)  forward_time: 169.9340 (137.8280)  metric_time: 0.1615 (0.1404)
+2021-07-08 08:46:42,619 mvpnet.test INFO: 244/312(scene0343_00)  acc: 88.15  IoU: 68.06  time: 171.5525 (145.4134)  data: 8.1564 (7.5109)  forward_time: 163.2068 (137.7343)  metric_time: 0.1586 (0.1405)
+2021-07-08 08:50:33,603 mvpnet.test INFO: 245/312(scene0251_00)  acc: 88.17  IoU: 68.09  time: 179.2551 (145.7613)  data: 8.1564 (7.4804)  forward_time: 170.9019 (138.1123)  metric_time: 0.1631 (0.1406)
+2021-07-08 08:51:20,105 mvpnet.test INFO: 246/312(scene0077_00)  acc: 88.18  IoU: 68.12  time: 178.5184 (145.3594)  data: 8.1568 (7.4502)  forward_time: 170.1647 (137.7409)  metric_time: 0.1632 (0.1404)
+2021-07-08 08:52:29,928 mvpnet.test INFO: 247/312(scene0077_01)  acc: 88.18  IoU: 68.11  time: 178.9797 (145.0548)  data: 8.1568 (7.4201)  forward_time: 170.6286 (137.4667)  metric_time: 0.1610 (0.1402)
+2021-07-08 08:52:50,926 mvpnet.test INFO: 248/312(scene0684_00)  acc: 88.19  IoU: 68.11  time: 162.2817 (144.5566)  data: 8.1567 (7.3904)  forward_time: 153.9474 (136.9988)  metric_time: 0.1490 (0.1397)
+2021-07-08 08:53:13,782 mvpnet.test INFO: 249/312(scene0684_01)  acc: 88.19  IoU: 68.11  time: 160.0454 (144.0698)  data: 8.0519 (7.3640)  forward_time: 151.8182 (136.5388)  metric_time: 0.1474 (0.1393)
+2021-07-08 08:54:37,082 mvpnet.test INFO: 250/312(scene0550_00)  acc: 88.17  IoU: 67.95  time: 159.4203 (143.8277)  data: 7.9805 (7.3477)  forward_time: 151.2654 (136.3133)  metric_time: 0.1467 (0.1391)
+2021-07-08 08:55:38,481 mvpnet.test INFO: 251/312(scene0686_00)  acc: 88.20  IoU: 68.01  time: 153.8734 (143.5006)  data: 6.9236 (7.3538)  forward_time: 146.7823 (135.9804)  metric_time: 0.1409 (0.1389)
+2021-07-08 08:57:38,074 mvpnet.test INFO: 252/312(scene0686_01)  acc: 88.22  IoU: 68.07  time: 152.1399 (143.4061)  data: 9.9638 (7.5981)  forward_time: 142.0116 (135.6419)  metric_time: 0.1386 (0.1386)
+2021-07-08 08:58:25,279 mvpnet.test INFO: 253/312(scene0686_02)  acc: 88.23  IoU: 68.09  time: 144.5999 (143.0273)  data: 8.9842 (7.5855)  forward_time: 135.4555 (135.2760)  metric_time: 0.1352 (0.1384)
+2021-07-08 09:05:51,895 mvpnet.test INFO: 254/312(scene0208_00)  acc: 88.18  IoU: 68.02  time: 160.0925 (144.2179)  data: 8.9840 (7.5558)  forward_time: 150.9368 (136.4955)  metric_time: 0.1445 (0.1391)
+2021-07-08 09:12:26,224 mvpnet.test INFO: 255/312(scene0500_00)  acc: 88.23  IoU: 68.05  time: 171.5281 (145.1949)  data: 8.9841 (7.5263)  forward_time: 162.3630 (137.5012)  metric_time: 0.1530 (0.1398)
+2021-07-08 09:18:07,767 mvpnet.test INFO: 256/312(scene0500_01)  acc: 88.26  IoU: 68.07  time: 181.4381 (145.9589)  data: 8.9841 (7.4970)  forward_time: 172.2675 (138.2938)  metric_time: 0.1573 (0.1403)
+2021-07-08 09:19:58,736 mvpnet.test INFO: 257/312(scene0552_00)  acc: 88.28  IoU: 68.18  time: 181.1037 (145.8232)  data: 8.9845 (7.4680)  forward_time: 171.9337 (138.1874)  metric_time: 0.1562 (0.1402)
+2021-07-08 09:21:21,376 mvpnet.test INFO: 258/312(scene0552_01)  acc: 88.30  IoU: 68.27  time: 170.0530 (145.5793)  data: 8.9842 (7.4392)  forward_time: 160.8912 (137.9723)  metric_time: 0.1503 (0.1402)
+2021-07-08 09:23:41,407 mvpnet.test INFO: 259/312(scene0648_00)  acc: 88.25  IoU: 68.21  time: 163.3493 (145.5579)  data: 8.4376 (7.4318)  forward_time: 154.7393 (137.9584)  metric_time: 0.1464 (0.1402)
+2021-07-08 09:26:30,072 mvpnet.test INFO: 260/312(scene0648_01)  acc: 88.21  IoU: 68.18  time: 152.7877 (145.6465)  data: 7.8547 (7.4312)  forward_time: 144.7700 (138.0476)  metric_time: 0.1385 (0.1402)
+2021-07-08 09:29:46,433 mvpnet.test INFO: 261/312(scene0435_00)  acc: 88.24  IoU: 68.40  time: 159.8190 (145.8400)  data: 7.1246 (7.4482)  forward_time: 152.5225 (138.2238)  metric_time: 0.1460 (0.1404)
+2021-07-08 09:34:16,403 mvpnet.test INFO: 262/312(scene0435_01)  acc: 88.25  IoU: 68.49  time: 161.7545 (146.3120)  data: 7.8251 (7.5391)  forward_time: 153.7554 (138.6045)  metric_time: 0.1476 (0.1407)
+2021-07-08 09:37:57,113 mvpnet.test INFO: 263/312(scene0435_02)  acc: 88.29  IoU: 68.61  time: 159.4762 (146.5938)  data: 7.7935 (7.5608)  forward_time: 151.5109 (138.8646)  metric_time: 0.1456 (0.1408)
+2021-07-08 09:40:41,457 mvpnet.test INFO: 264/312(scene0435_03)  acc: 88.30  IoU: 68.70  time: 161.9407 (146.6608)  data: 7.7932 (7.5322)  forward_time: 153.9745 (138.9599)  metric_time: 0.1465 (0.1409)
+2021-07-08 09:42:14,335 mvpnet.test INFO: 265/312(scene0690_00)  acc: 88.29  IoU: 68.68  time: 155.0354 (146.4586)  data: 7.7933 (7.5039)  forward_time: 147.0767 (138.7863)  metric_time: 0.1418 (0.1407)
+2021-07-08 09:43:55,783 mvpnet.test INFO: 266/312(scene0690_01)  acc: 88.25  IoU: 68.65  time: 157.7828 (146.2900)  data: 7.7931 (7.4759)  forward_time: 149.8225 (138.6459)  metric_time: 0.1440 (0.1407)
+2021-07-08 09:44:10,345 mvpnet.test INFO: 267/312(scene0693_00)  acc: 88.25  IoU: 68.67  time: 155.0198 (145.7985)  data: 7.7931 (7.4480)  forward_time: 147.0600 (138.1826)  metric_time: 0.1436 (0.1404)
+2021-07-08 09:44:36,985 mvpnet.test WARNING: scene0693_01: There are 103 points without prediction.
+2021-07-08 09:44:37,027 mvpnet.test INFO: 268/312(scene0693_01)  acc: 88.26  IoU: 68.69  time: 155.3040 (145.3557)  data: 7.7931 (7.4203)  forward_time: 147.3437 (137.7679)  metric_time: 0.1439 (0.1400)
+2021-07-08 09:44:54,879 mvpnet.test INFO: 269/312(scene0693_02)  acc: 88.26  IoU: 68.68  time: 155.0538 (144.8834)  data: 7.7782 (7.3947)  forward_time: 147.1062 (137.3216)  metric_time: 0.1459 (0.1398)
+2021-07-08 09:47:26,605 mvpnet.test INFO: 270/312(scene0700_00)  acc: 88.18  IoU: 68.56  time: 158.4751 (144.9087)  data: 7.9143 (7.3895)  forward_time: 150.3887 (137.3521)  metric_time: 0.1480 (0.1398)
+2021-07-08 09:49:16,122 mvpnet.test INFO: 271/312(scene0700_01)  acc: 88.11  IoU: 68.46  time: 160.8810 (144.7786)  data: 8.0879 (7.4078)  forward_time: 152.6182 (137.2038)  metric_time: 0.1503 (0.1397)
+2021-07-08 09:52:04,289 mvpnet.test INFO: 272/312(scene0700_02)  acc: 88.10  IoU: 68.46  time: 163.3097 (144.8642)  data: 8.2852 (7.6484)  forward_time: 154.8477 (137.0489)  metric_time: 0.1519 (0.1396)
+2021-07-08 09:54:31,642 mvpnet.test INFO: 273/312(scene0699_00)  acc: 88.07  IoU: 68.44  time: 168.3171 (144.8733)  data: 8.7250 (7.6687)  forward_time: 159.4124 (137.0378)  metric_time: 0.1543 (0.1396)
+2021-07-08 10:01:35,779 mvpnet.test INFO: 274/312(scene0231_00)  acc: 88.10  IoU: 68.56  time: 167.1931 (145.8888)  data: 8.7251 (7.6408)  forward_time: 158.2871 (138.0804)  metric_time: 0.1545 (0.1402)
+2021-07-08 10:09:01,454 mvpnet.test INFO: 275/312(scene0231_01)  acc: 88.09  IoU: 68.59  time: 169.7605 (146.9750)  data: 8.7253 (7.6132)  forward_time: 160.8515 (139.1933)  metric_time: 0.1555 (0.1409)
+2021-07-08 10:13:59,406 mvpnet.test INFO: 276/312(scene0231_02)  acc: 88.04  IoU: 68.49  time: 167.5809 (147.5200)  data: 8.7256 (7.5857)  forward_time: 158.6696 (139.7650)  metric_time: 0.1563 (0.1415)
+2021-07-08 10:15:49,722 mvpnet.test INFO: 277/312(scene0697_00)  acc: 88.00  IoU: 68.44  time: 167.5483 (147.3862)  data: 8.7253 (7.5585)  forward_time: 158.6366 (139.6585)  metric_time: 0.1568 (0.1414)
+2021-07-08 10:18:06,504 mvpnet.test INFO: 278/312(scene0697_01)  acc: 87.96  IoU: 68.41  time: 170.2554 (147.3482)  data: 8.7253 (7.5314)  forward_time: 161.3437 (139.6477)  metric_time: 0.1567 (0.1413)
+2021-07-08 10:20:42,493 mvpnet.test INFO: 279/312(scene0697_02)  acc: 87.93  IoU: 68.38  time: 171.0533 (147.3790)  data: 8.9331 (7.5390)  forward_time: 161.9340 (139.6710)  metric_time: 0.1564 (0.1413)
+2021-07-08 10:23:13,778 mvpnet.test INFO: 280/312(scene0697_03)  acc: 87.90  IoU: 68.35  time: 170.1843 (147.3929)  data: 8.8918 (7.5351)  forward_time: 161.1061 (139.6887)  metric_time: 0.1565 (0.1413)
+2021-07-08 10:26:14,028 mvpnet.test INFO: 281/312(scene0474_00)  acc: 87.91  IoU: 68.38  time: 169.3787 (147.5094)  data: 8.8606 (7.5484)  forward_time: 160.3349 (139.7919)  metric_time: 0.1538 (0.1414)
+2021-07-08 10:29:43,843 mvpnet.test INFO: 282/312(scene0474_01)  acc: 87.91  IoU: 68.39  time: 166.3710 (147.7296)  data: 8.3971 (7.5997)  forward_time: 157.7938 (139.9607)  metric_time: 0.1505 (0.1414)
+2021-07-08 10:34:07,770 mvpnet.test INFO: 283/312(scene0474_02)  acc: 87.91  IoU: 68.39  time: 168.5318 (148.1387)  data: 8.4550 (7.6237)  forward_time: 159.8953 (140.3456)  metric_time: 0.1515 (0.1416)
+2021-07-08 10:36:20,380 mvpnet.test INFO: 284/312(scene0474_03)  acc: 87.90  IoU: 68.39  time: 166.9450 (148.0842)  data: 8.4550 (7.5970)  forward_time: 158.3087 (140.3178)  metric_time: 0.1518 (0.1417)
+2021-07-08 10:38:36,932 mvpnet.test INFO: 285/312(scene0474_04)  acc: 87.85  IoU: 68.28  time: 169.1287 (148.0439)  data: 8.4549 (7.5704)  forward_time: 160.4895 (140.3040)  metric_time: 0.1546 (0.1417)
+2021-07-08 10:40:22,810 mvpnet.test INFO: 286/312(scene0474_05)  acc: 87.87  IoU: 68.33  time: 169.3502 (147.8970)  data: 8.4549 (7.5441)  forward_time: 160.7112 (140.1835)  metric_time: 0.1535 (0.1416)
+2021-07-08 10:42:31,270 mvpnet.test INFO: 287/312(scene0355_00)  acc: 87.89  IoU: 68.33  time: 175.0451 (147.8295)  data: 8.4550 (7.5179)  forward_time: 166.4035 (140.1424)  metric_time: 0.1557 (0.1415)
+2021-07-08 10:43:25,940 mvpnet.test INFO: 288/312(scene0355_01)  acc: 87.90  IoU: 68.34  time: 176.4446 (147.5071)  data: 8.4552 (7.4919)  forward_time: 167.8020 (139.8464)  metric_time: 0.1566 (0.1412)
+2021-07-08 10:43:49,974 mvpnet.test INFO: 289/312(scene0146_00)  acc: 87.91  IoU: 68.36  time: 176.7536 (147.0814)  data: 8.4784 (7.4694)  forward_time: 168.0868 (139.4433)  metric_time: 0.1575 (0.1410)
+2021-07-08 10:44:14,446 mvpnet.test INFO: 290/312(scene0146_01)  acc: 87.91  IoU: 68.37  time: 170.3908 (146.6600)  data: 8.2138 (7.4461)  forward_time: 161.9937 (139.0456)  metric_time: 0.1532 (0.1407)
+2021-07-08 10:44:47,236 mvpnet.test INFO: 291/312(scene0146_02)  acc: 87.91  IoU: 68.39  time: 166.5545 (146.2701)  data: 7.9310 (7.4436)  forward_time: 158.4444 (138.6586)  metric_time: 0.1497 (0.1404)
+2021-07-08 10:47:12,490 mvpnet.test INFO: 292/312(scene0196_00)  acc: 87.94  IoU: 68.41  time: 165.4089 (146.2666)  data: 4.8723 (7.4589)  forward_time: 160.3568 (138.6399)  metric_time: 0.1503 (0.1403)
+2021-07-08 10:47:43,467 mvpnet.test INFO: 293/312(scene0702_00)  acc: 87.95  IoU: 68.47  time: 159.5901 (145.8744)  data: 4.4011 (7.4464)  forward_time: 155.0136 (138.2607)  metric_time: 0.1467 (0.1400)
+2021-07-08 10:48:14,793 mvpnet.test INFO: 294/312(scene0702_01)  acc: 87.94  IoU: 68.49  time: 139.9495 (145.4861)  data: 4.4011 (7.4212)  forward_time: 135.3901 (137.8980)  metric_time: 0.1332 (0.1397)
+2021-07-08 10:48:21,167 mvpnet.test INFO: 295/312(scene0702_02)  acc: 87.94  IoU: 68.46  time: 117.9845 (145.0162)  data: 4.4006 (7.3961)  forward_time: 113.4448 (137.4535)  metric_time: 0.1180 (0.1394)
+2021-07-08 10:49:35,677 mvpnet.test INFO: 296/312(scene0314_00)  acc: 87.91  IoU: 68.43  time: 106.8124 (144.7788)  data: 4.4000 (7.3712)  forward_time: 102.2882 (137.2413)  metric_time: 0.1068 (0.1391)
+2021-07-08 10:50:43,872 mvpnet.test INFO: 297/312(scene0277_00)  acc: 87.91  IoU: 68.43  time: 104.7063 (144.5218)  data: 4.3999 (7.3465)  forward_time: 100.1856 (137.0094)  metric_time: 0.1041 (0.1389)
+2021-07-08 10:51:42,895 mvpnet.test INFO: 298/312(scene0277_01)  acc: 87.91  IoU: 68.44  time: 100.8184 (144.2358)  data: 4.3997 (7.3219)  forward_time: 96.3005 (136.7482)  metric_time: 0.1015 (0.1387)
+2021-07-08 10:52:29,299 mvpnet.test INFO: 299/312(scene0277_02)  acc: 87.90  IoU: 68.44  time: 95.3391 (143.9097)  data: 4.0570 (7.3069)  forward_time: 91.1677 (136.4374)  metric_time: 0.0984 (0.1385)
+2021-07-08 10:55:40,486 mvpnet.test INFO: 300/312(scene0095_00)  acc: 87.91  IoU: 68.44  time: 97.3342 (144.0668)  data: 4.1607 (7.3109)  forward_time: 93.0569 (136.5903)  metric_time: 0.1006 (0.1386)
+2021-07-08 10:59:12,035 mvpnet.test INFO: 301/312(scene0095_01)  acc: 87.94  IoU: 68.45  time: 98.8992 (144.2902)  data: 4.3707 (7.3380)  forward_time: 94.4071 (136.7863)  metric_time: 0.1047 (0.1389)
+2021-07-08 11:03:17,054 mvpnet.test INFO: 302/312(scene0015_00)  acc: 87.98  IoU: 68.47  time: 100.6595 (144.6227)  data: 4.2471 (7.3784)  forward_time: 96.2908 (137.0781)  metric_time: 0.1051 (0.1390)
+2021-07-08 11:03:46,738 mvpnet.test INFO: 303/312(scene0100_00)  acc: 87.98  IoU: 68.46  time: 88.9474 (144.2446)  data: 3.5715 (7.3571)  forward_time: 85.2628 (136.7217)  metric_time: 0.0982 (0.1387)
+2021-07-08 11:04:15,660 mvpnet.test INFO: 304/312(scene0100_01)  acc: 87.97  IoU: 68.46  time: 83.7630 (143.8665)  data: 3.5715 (7.3330)  forward_time: 80.0860 (136.3681)  metric_time: 0.0919 (0.1384)
+2021-07-08 11:04:39,248 mvpnet.test INFO: 305/312(scene0100_02)  acc: 87.98  IoU: 68.47  time: 78.1148 (143.4734)  data: 3.5714 (7.3091)  forward_time: 74.4431 (135.9994)  metric_time: 0.0868 (0.1381)
+2021-07-08 11:05:57,922 mvpnet.test INFO: 306/312(scene0558_00)  acc: 87.99  IoU: 68.49  time: 76.7546 (143.2623)  data: 3.5711 (7.2853)  forward_time: 73.0857 (135.8123)  metric_time: 0.0852 (0.1379)
+2021-07-08 11:07:46,560 mvpnet.test INFO: 307/312(scene0558_01)  acc: 88.00  IoU: 68.52  time: 75.7635 (143.1499)  data: 3.5710 (7.2616)  forward_time: 72.0939 (135.7237)  metric_time: 0.0856 (0.1379)
+2021-07-08 11:10:32,747 mvpnet.test INFO: 308/312(scene0558_02)  acc: 88.02  IoU: 68.56  time: 81.3393 (143.2244)  data: 3.9748 (7.2643)  forward_time: 77.2607 (135.7955)  metric_time: 0.0899 (0.1379)
+2021-07-08 11:11:44,804 mvpnet.test INFO: 309/312(scene0685_00)  acc: 88.03  IoU: 68.55  time: 83.7404 (142.9949)  data: 4.0464 (7.2486)  forward_time: 79.5887 (135.5817)  metric_time: 0.0907 (0.1378)
+2021-07-08 11:13:45,774 mvpnet.test INFO: 310/312(scene0685_01)  acc: 88.05  IoU: 68.55  time: 88.5653 (142.9240)  data: 4.3035 (7.2440)  forward_time: 84.1531 (135.5156)  metric_time: 0.0939 (0.1377)
+2021-07-08 11:17:00,869 mvpnet.test INFO: 311/312(scene0685_02)  acc: 88.07  IoU: 68.54  time: 96.6805 (143.0912)  data: 4.2701 (7.2402)  forward_time: 92.2936 (135.6865)  metric_time: 0.1004 (0.1378)
+2021-07-08 11:17:01,771 mvpnet.test INFO: Test time: 143.0912  data: 7.2402  forward_time: 135.6865  metric_time: 0.1378  test time: 44645.76s
+2021-07-08 11:17:01,771 mvpnet.test INFO: overall accuracy=88.07%
+2021-07-08 11:17:01,772 mvpnet.test INFO: overall IOU=68.54
+2021-07-08 11:17:01,801 mvpnet.test INFO: class-wise accuracy and IoU.
++----------------+------------+-------+----------+
+| Class          |   Accuracy |   IOU |    Total |
+|----------------+------------+-------+----------|
+| wall           |      91.20 | 81.59 | 10936492 |
+| floor          |      97.64 | 94.30 |  8983296 |
+| cabinet        |      76.07 | 59.53 |  1399895 |
+| bed            |      85.01 | 78.45 |   915295 |
+| chair          |      92.17 | 86.69 |  3175867 |
+| sofa           |      91.00 | 74.40 |   789769 |
+| table          |      83.12 | 73.64 |  1478887 |
+| door           |      76.68 | 61.93 |  1600191 |
+| window         |      75.81 | 59.61 |  1385131 |
+| bookshelf      |      86.89 | 78.29 |  1125319 |
+| picture        |      39.62 | 32.32 |   207442 |
+| counter        |      71.24 | 56.34 |   221560 |
+| desk           |      83.49 | 62.75 |   655163 |
+| curtain        |      75.40 | 66.91 |   657363 |
+| refridgerator  |      59.92 | 53.90 |   223258 |
+| shower curtain |      69.00 | 62.76 |   158208 |
+| toilet         |      96.94 | 90.66 |   113661 |
+| sink           |      74.25 | 60.57 |   102489 |
+| bathtub        |      93.27 | 80.17 |    96355 |
+| otherfurniture |      65.01 | 55.95 |  1637177 |
++----------------+------------+-------+----------+
