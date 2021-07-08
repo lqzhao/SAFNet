@@ -37,7 +37,12 @@ python mvpnet/train_2d.py --cfg configs/scannet/unet_resnet34.yaml
  
  Please check the [BaiduDisk](https://pan.baidu.com/s/1-0TTaVea42OHyh8Z1tBBvw) with the code [f4n6].
  
-# Acknowledgements
+ 
+## Core code
+
+To see the corest part of our method, you can directly check [this file](./safnet/models/safnet_3d_late_fusion_attention_linear_mapping.py).
+ 
+## Acknowledgements
 We thank the authors of following works for opening source their excellent codes.
 
   - [MVPNet](https://github.com/maxjaritz/mvpnet)
