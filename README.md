@@ -29,6 +29,14 @@ python mvpnet/train_2d.py --cfg configs/scannet/unet_resnet34.yaml
  
  The code is coming soon.
  
+ ## Pre-trained Model
+ 
+ We provide a pre-trained model which achieves 68.54% mIoU on the validation set of ScanNetv2.
+ 
+ The validation log was written in [this file].
+ 
+ Please check the [BaiduDisk](https://pan.baidu.com/s/1-0TTaVea42OHyh8Z1tBBvw) with the code [f4n6].
+ 
 # Acknowledgements
 We thank the authors of following works for opening source their excellent codes.
 
