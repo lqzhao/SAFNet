@@ -31,7 +31,7 @@ python mvpnet/train_2d.py --cfg configs/scannet/unet_resnet34.yaml
  
  ## Pre-trained Model
  
- We provide a pre-trained model which achieves **68.54% mIoU** and **88.07% Accuracy** on the validation set of ScanNetv2.
+ We provide a pre-trained model (backbone: PointNet++ & ResNet34) which achieves **68.54% mIoU** and **88.07% Accuracy** on the validation set of ScanNetv2.
  
  The validation log was written in [this file](./log.test.07-07_22-52-27.ivg-221.txt).
  
