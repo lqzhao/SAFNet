@@ -46,6 +46,8 @@ To see the corest part of our method, you can directly check [this file](./safne
 We thank the authors of following works for opening source their excellent codes.
 
   - [MVPNet](https://github.com/maxjaritz/mvpnet)
+  
+  - [3DMV](https://github.com/angeladai/3DMV)
 
   - [PointNet2](https://github.com/charlesq34/pointnet2)
 
