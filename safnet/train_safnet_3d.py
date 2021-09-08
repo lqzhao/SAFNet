@@ -64,25 +64,8 @@ def train(similarity,cfg, output_dir='', run_name=''):
     set_random_seed(cfg.RNG_SEED)
     model, loss_fn, train_metric, val_metric = build_model_mvpnet_3d(similarity,cfg)
 
-    # net_3d_ckpt_path = '0524_no_2d_label_pretrained/model_best.pth'
-    # net_3d_ckpt_path = '0328_best_ever/model_best_ever_67.24.pth'
-    # net_2d_ckpt_path = '0519_depth_loss_huber_loss_without_recon_loss/model_best.pth'
-    # net_2d_ckpt_path = '0529_new/model_best.pth'
-    # net_3d_ckpt_path = '0523_point_branch2/protect/model_best_67.54.pth'
-    # net_3d_ckpt_path = 'late_fusion/0609_sift_module4_k64_no_attention_r0.1_nndist_geometirc_similarity7/model_best_67.87.pth'
-    # net_3d_ckpt_path = '0514_test_similarity1/model_014000.pth'
-    # net_3d_ckpt_path = 'early_fusion/0613_3/model_best.pth'
-    # net_3d_ckpt_path = 'late_fusion/0613_retrain_bestpoint2/model_best.pth'
-    # net_3d_ckpt_path = 'late_fusion/0615_depth_decoder/model_best.pth'
-    # net_3d_ckpt_path = 'late_fusion/0621_fit/model_best.pth'
-    # net_3d_ckpt_path = 'late_fusion/0624_fit_1/model_011000.pth'
-    # net_2d_ckpt_path = 'late_fusion/0626_attention_retrain_image_1/protect/model_001000.pth'
-    # net_3d_ckpt_path = 'early_fusion/0701_attention_5/model_best.pth'
-    # net_3d_ckpt_path = 'late_fusion/0706_attention_nn_bidirection7/protect/model_best_0.6759.pth'
+    # net_3d_ckpt_path = 'late_fusion/0706_attention_nn_bidirection_image/protect/model_best_0.6855.pth'
 
-     net_3d_ckpt_path = 'late_fusion/0706_attention_nn_bidirection_image/protect/model_best_0.6855.pth'
-    #net_3d_ckpt_path = 'late_fusion/20210301_pointconv_new/model_best.pth'
-    # net_3d_ckpt_path = None
 
     if net_3d_ckpt_path:
         checkpoint = torch.load(net_3d_ckpt_path, map_location=torch.device("cpu"))
