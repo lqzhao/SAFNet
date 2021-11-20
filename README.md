@@ -1,4 +1,4 @@
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/similarity-aware-fusion-network-for-3d/semantic-segmentation-on-scannet)](https://paperswithcode.com/sota/semantic-segmentation-on-scannet?p=similarity-aware-fusion-network-for-3d)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/similarity-aware-fusion-network-for-3d/semantic-segmentation-on-scannet)](https://paperswithcode.com/sota/semantic-segmentation-on-scannet?p=similarity-aware-fusion-network-for-3d)[![arXiv](https://img.shields.io/badge/arXiv-1234.56789-b31b1b.svg)](https://arxiv.org/abs/2107.01579)
 
 # SAFNet
 Implementation of [Similarity-Aware Fusion Network for 3D Semantic Segmentation](https://arxiv.org/abs/2107.01579) IROS 2021
