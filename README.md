@@ -56,10 +56,12 @@ We thank the authors of following works for opening source their excellent codes
 # Citation
 If you find our work useful, please cite our [paper](https://arxiv.org/abs/2107.01579):
 ```
-@article{zhao2021similarity,
+@inproceedings{zhao2021similarity,
   title={Similarity-Aware Fusion Network for 3D Semantic Segmentation},
   author={Zhao, Linqing and Lu, Jiwen and Zhou, Jie},
-  journal={arXiv preprint arXiv:2107.01579},
-  year={2021}
+  booktitle={2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={1585--1592},
+  year={2021},
+  organization={IEEE}
 }
 ```
