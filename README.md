@@ -3,7 +3,7 @@
 # SAFNet
 Implementation of [Similarity-Aware Fusion Network for 3D Semantic Segmentation](https://arxiv.org/abs/2107.01579) IROS 2021
 
-To get a rapid understanding of our paper and codes, you can also read this [blog](https://zhuanlan.zhihu.com/p/446708961) written in Chinese.
+To get a rapid understanding of our paper and codes, you can also read this [blog](https://zhuanlan.zhihu.com/p/446708961) written by an anonymous reader in Chinese.
 
 ![](./pipeline.png)
 
